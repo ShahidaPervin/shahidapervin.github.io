@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teaching</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #f2f2f2;
+            padding: 20px;
+            text-align: center;
+        }
+        .depository {
+            margin-top: 20px;
+        }
+        .depository h2 {
+            text-align: center;
+        }
+        .material {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .publication-link {
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<header>
+   <--     <img src="images/logo.png" alt="Logo" class="logo"> -->
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+         <!--       <li><a href="about.html">About</a></li>  -->
+            </ul>
+        </nav>
+    </header>
+
+        <div class="header">
+            <h1>Teaching</h1>
+        </div>
+        <div class="depository">
+            <h2>Courses currently teaching</h2>
+        </div>
+            <div class="material">                
+        <a href="Public-Economics.html">Public Economics</a>
+            <div class="depository">
+                <h2>Courses </h2>
+            </div>
+            <div class="material">
+                <h3>Journal articles</h3>
+            </div>          
+            <div class="material">
+                <a class="publication-link"> Data and Econometric Methods</a>
+                <a class="publication-link"> Empirical Analysis of Issues in Development Economics</a>
+                <a class="https://drive.google.com/file/d/1_vY5dVgdp67lARIE6w90b1afD2HVbrAW/view?usp=drive_link"> Labor, Family and Public Economics</a>
+            </div>
+                
+    </body>
+</html>
