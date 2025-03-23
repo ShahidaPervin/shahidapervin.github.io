@@ -97,7 +97,26 @@
 
 
     </style>
+
+
+
+
+    <script>
+    // Function to remove the fbclid parameter from the URL
+    (function() {
+        if (window.location.search.indexOf('fbclid=') !== -1) {
+            // Get the base URL without query parameters
+            var url = window.location.href.split('?')[0];
+            // Use the History API to update the URL without reloading the page
+            window.history.replaceState({}, document.title, url);
+        }
+    })();
+</script>
 </head>
+
+
+
+    
 <body>
 
 <header>
