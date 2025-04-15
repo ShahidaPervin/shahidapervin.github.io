@@ -1,0 +1,14 @@
+git clone https://github.com/ShahidaPervin/shahidapervin.github.io.git
+git clone https://github.com/ShahidaPervin/DevEconMaterials.git
+cd shahidapervin.github.io
+cp -r <folder_name> ../DevEconMaterials
+    cd ../DevEconMaterials
+    git add <folder_name>
+git commit -m "Moved folder from shahidapervin.github.io"
+git push
+
+        cd ../shahidapervin.github.io
+        git rm -r <folder_name>
+git commit -m "Removed folder after moving to DevEconMaterials"
+git push
+
