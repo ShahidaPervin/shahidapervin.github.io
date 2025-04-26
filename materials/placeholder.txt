@@ -1,7 +1,1 @@
-git clone https://github.com/ShahidaPervin/shahidapervin.github.io.git
-cd shahidapervin.github.io
-mkdir materials
-echo "This is a placeholder file." > materials/placeholder.txt
-git add materials/placeholder.txt
-git commit -m "Add materials folder with placeholder file"
-git push origin main
+
