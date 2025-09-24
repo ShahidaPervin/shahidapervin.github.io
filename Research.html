@@ -4,17 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Research Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        :root {
+            --primary: #2c3e50;
+            --secondary: #2980b9;
+            --bg-light: #f7f9fa;
+            --white: #fff;
+            --accent: #e67e22;
+        }
+        * {
             margin: 0;
             padding: 0;
-            background-color: #fafafa;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background: var(--bg-light);
+            color: var(--primary);
+            min-height: 100vh;
+        }
+        header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 32px 0 24px 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(44,62,80,0.07);
+        }
+        .nav-links {
+            margin-top: 18px;
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+        }
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 18px;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 500;
+            transition: color 0.2s;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 3px;
+        }
+        .nav-links a:hover {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
         }
         .container {
             width: 80%;
             max-width: 900px;
-            margin: 40px auto 40px auto;
+            margin: 120px auto 40px auto; /* offset for fixed header */
             padding: 30px 40px;
             background: #fff;
             box-shadow: 0 4px 18px rgba(0,0,0,0.07);
@@ -43,24 +88,6 @@
             display: block;
             margin-bottom: 10px;
         }
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            text-align: left;
-        }
-        nav ul li {
-            display: inline;
-            margin-right: 16px;
-        }
-        nav a {
-            text-decoration: none;
-            color: #0077cc;
-            font-weight: bold;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
         @media (max-width: 700px) {
             .container {
                 width: 98%;
@@ -70,9 +97,24 @@
                 padding: 10px 7px;
             }
         }
+        @media (max-width: 600px) {
+            header {
+                padding: 18px 0 8px 0;
+            }
+            .nav-links {
+                gap: 14px;
+            }
+            .nav-links a {
+                font-size: 15px;
+            }
+            .container {
+                margin-top: 90px;
+                padding: 10px 5px;
+            }
+        }
     </style>
 </head>
-
+<body>
     <header>
         <div style="font-family:'Montserrat',Arial,sans-serif;font-size:2rem;font-weight:700;letter-spacing:1px;">
             Dr. Shahida Pervin
@@ -83,16 +125,7 @@
             <a href="Teaching.html">Teaching</a>
         </nav>
     </header>
-    
-<body>
     <div class="container">
-        <header>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                </ul>
-            </nav>
-        </header>
         <div class="header">
             <h1>Research Profile</h1>
         </div>
@@ -125,7 +158,7 @@
                     Household-level Analysis of Women’s Power Practice in Old Dhaka City, Bangladesh.</a> Journal of Comparative Asian Development, 13(1), 174–203.
             </div>
             <div class="publication-link">
-                Pervin, S. (n.d.). <a href="" target="_blank" rel="noopener noreferrer"> </a> Multinational stakeholders-led safety enforcement: Response, employment, and factories in Bangladesh’s export-oriented apparel industry.
+                Pervin, S. (n.d.). <a href="" target="_blank" rel="noopener noreferrer"> </a> Multinational stakeholders-led safety enforcement: Response, employment, and factories in Bangladesh’s e[...]
             </div>
         </div>
         <div class="depository">
@@ -134,17 +167,17 @@
         <div class="material">
             <h3>2025</h3>
             <div class="publication-link"> 
-                "Migration to Address Labor Shortage in Japan" (with Lei Lei) presented in-person at the <a href="https://www.soas.ac.uk/research/call-papers-seventh-annual-conference-japan-economy-network" target="_blank" rel="noopener noreferrer"> 7th Annual Conference of the Japan Economy Network, SOAS University of London,</a> 28-29 August 2025.
+                "Migration to Address Labor Shortage in Japan" (with Lei Lei) presented in-person at the <a href="https://www.soas.ac.uk/research/call-papers-seventh-annual-conference-japan-economy-ne[...]
             </div>
             <div class="publication-link"> 
-                "Fellow" to be in-person at the 2025 <a href="https://www.levyinstitute.org/events/event/levy-institute-summer-seminar-on-money-finance-and-public-policy/" target="_blank" rel="noopener noreferrer"> Levy Economics Institute Summer Seminar on Money, Finance, and Public Policy, Bard College campus in Annandale-on-Hudson, New York,</a> 16-20 June 2025.
+                "Fellow" to be in-person at the 2025 <a href="https://www.levyinstitute.org/events/event/levy-institute-summer-seminar-on-money-finance-and-public-policy/" target="_blank" rel="noopene[...]
             </div>
             <div class="publication-link">
                 “What Factors Influence Chinese Government Bond Yields?” (with Tanweer Akram) presented in-person at the IDE-JETRO APL regular seminar, Chiba, Japan, 27 March 2025. 
                 <a href="https://www.ide.go.jp/English/Events/Apl/250327_apl.html" target="_blank">Announcement</a>
             </div>
             <div class="publication-link">
-                “What Factors Influence Chinese Government Bond Yields?” (With Tanweer Akram) presented online at the 8th SANEM Annual Economists’ Conference (SAEC) 2025, Dhaka, Bangladesh, 21-23 February 2025.
+                “What Factors Influence Chinese Government Bond Yields?” (With Tanweer Akram) presented online at the 8th SANEM Annual Economists’ Conference (SAEC) 2025, Dhaka, Bangladesh, 21-2[...]
             </div>
             <div class="publication-link"> "Discussant" in-person at the ASSA 2025 Annual Meeting, San Francisco, California, 2-5 January 2025. 
             </div>
@@ -152,59 +185,59 @@
         <div class="material">
             <h3>2024</h3>
             <div class="publication-link">
-                "Migration to Address Labor Shortage in Japan: Evidence from Immigration Policy" (with Lei Lei) presented online at the 3rd International Conference on Japan−Bangladesh Research and Practice 2024.
+                "Migration to Address Labor Shortage in Japan: Evidence from Immigration Policy" (with Lei Lei) presented online at the 3rd International Conference on Japan−Bangladesh Research and [...]
                 <a href="https://nbrj-jbrp.github.io/JBRP2024/" target="_blank">Conference proceedings</a>
             </div>       
             <div class="publication-link">
-                “Labor Market Effects of Public Sector Hiring Policies and International Apparel Sector Monitoring in Bangladesh” presented in-person at CPD in-house dialogue, Dhaka, Bangladesh, 20 February 2024.
+                “Labor Market Effects of Public Sector Hiring Policies and International Apparel Sector Monitoring in Bangladesh” presented in-person at CPD in-house dialogue, Dhaka, Bangladesh, 2[...]
             </div>
         </div>          
         <div class="material">
             <h3>2023</h3>
             <div class="publication-link"> 
-                "Are attractive government jobs distorting the labor market? Evidence from Bangladesh" presented in-person at the 2nd Asian Economic Development Conference, University of Tokyo, Japan, 15-16 July 2023.
+                "Are attractive government jobs distorting the labor market? Evidence from Bangladesh" presented in-person at the 2nd Asian Economic Development Conference, University of Tokyo, Japan,[...]
             </div>
             <div class="publication-link"> 
-                "Are attractive government jobs distorting the labor market? Evidence from Bangladesh" presented online at the 6th SANEM Annual Economists' Conference (SAEC) 2023, Dhaka, Bangladesh, 4-5 February 2023.
+                "Are attractive government jobs distorting the labor market? Evidence from Bangladesh" presented online at the 6th SANEM Annual Economists' Conference (SAEC) 2023, Dhaka, Bangladesh, 4[...]
             </div>
             <div class ="publication-link"> 
-                "Effects of Safety Law Enforcement on the Manufacturing Industry: Evidence from a Multinational Involvement in the Apparel Sector of Bangladesh" presented online at GRIPS Policy Analysis Workshop, 2023.
+                "Effects of Safety Law Enforcement on the Manufacturing Industry: Evidence from a Multinational Involvement in the Apparel Sector of Bangladesh" presented online at GRIPS Policy Analys[...]
             </div>
         </div>          
         <div class="material">
             <h3>2022</h3>
             <div class = "publication-link"> 
-                "Are attractive government jobs distorting the labor market? Evidence from Bangladesh" presented in-person at the Asian and Australasian Society of Labour Economics (AASLE) 2022 Conference, Tokyo.
+                "Are attractive government jobs distorting the labor market? Evidence from Bangladesh" presented in-person at the Asian and Australasian Society of Labour Economics (AASLE) 2022 Confer[...]
             </div>
             <div class = "publication-link"> 
-                "Effects of Safety Law Enforcement on the Manufacturing Industry: Evidence from a Multinational Involvement in the Apparel Sector of Bangladesh" presented online at the Western Economic Association Conference, 2022.
+                "Effects of Safety Law Enforcement on the Manufacturing Industry: Evidence from a Multinational Involvement in the Apparel Sector of Bangladesh" presented online at the Western Economi[...]
             </div>
         </div>          
         <div class = "material">
             <h3> 2021 </h3>
             <div class = "publication-link"> 
-                "Are attractive government jobs distorting the labor market? Evidence from Bangladesh" presented online at the 77th Annual Congress of the International Institute of Public Finance, University of Linz, Austria.
+                "Are attractive government jobs distorting the labor market? Evidence from Bangladesh" presented online at the 77th Annual Congress of the International Institute of Public Finance, Un[...]
             </div>
             <div class = "publication-link"> 
-                "Effects of Safety Law Enforcement on the Manufacturing Industry: Evidence from a Multinational Involvement in the Apparel Sector of Bangladesh" presented online at the LDC Future Forum: Achieving Sustainable Graduation, 2021.
+                "Effects of Safety Law Enforcement on the Manufacturing Industry: Evidence from a Multinational Involvement in the Apparel Sector of Bangladesh" presented online at the LDC Future Foru[...]
             </div>
         </div>
         <div class = "material">
             <h3> 2017 </h3>
             <div class = "publication-link"> 
-                “Women`s Contribution to the Economy: The Case of Bangladesh” participated in-person as a Young Global Changer at the Think20 Summit Global Solutions mandated by the 2017 German presidency of the G20.
+                “Women`s Contribution to the Economy: The Case of Bangladesh” participated in-person as a Young Global Changer at the Think20 Summit Global Solutions mandated by the 2017 German pr[...]
             </div>    
         </div>
         <div class = "material">
             <h3> 2015 </h3>
             <div class = "publication-link"> 
-                “Dynamics of Labour Force Participation in Bangladesh with Special Reference to Women” presented in-person at the Young Scholar Seminar Series (YSSS), Centre for Policy Dialogue (CPD), Dhaka.
+                “Dynamics of Labour Force Participation in Bangladesh with Special Reference to Women” presented in-person at the Young Scholar Seminar Series (YSSS), Centre for Policy Dialogue (C[...]
             </div>    
         </div>
         <div class = "material">
             <h3> 2013 </h3>
             <div class = "publication-link"> 
-                “Towards Bangladesh-at-50 Food Security in Bangladesh: Issues and Challenges” presented in-person at Dhaka School of Economics, Bangladesh Economic Association Auditorium, Eskaton Garden Road, Dhaka.
+                “Towards Bangladesh-at-50 Food Security in Bangladesh: Issues and Challenges” presented in-person at Dhaka School of Economics, Bangladesh Economic Association Auditorium, Eskaton [...]
             </div>    
         </div>
     </div>
