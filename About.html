@@ -53,7 +53,17 @@
         ul li {
             margin-bottom: 6px;
         }
-                .navbar li {
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .navbar li {
             float: left;
         }
         .navbar li a {
@@ -86,15 +96,17 @@
     </style>
 </head>
 <body>
-    <div id="container">
+    <header>
+        <nav class="navbar">
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="About.html" class="active">About me</a></li>
                 <!-- Uncomment/add other tabs as per your index.html -->
                 <!-- <li><a href="about.html">About</a></li> -->
             </ul>
-
-        
+        </nav>
+    </header>
+    <div id="container">
         <h2>Short bio</h2>
         <p>
             I am an Assistant Professor of Economics at Waseda University, Tokyo, Japan. 
