@@ -202,6 +202,39 @@
                 font-size: 1.15rem;
             }
         }
+            /* Social Media Button Styles */
+        .social-footer {
+            margin-bottom: 12px;
+        }
+        .social-footer a {
+            display: inline-block;
+            margin: 0 8px;
+            width: 38px;
+            height: 38px;
+            background: var(--white);
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(44,62,80,0.07);
+            text-align: center;
+            line-height: 38px;
+            transition: background 0.2s, transform 0.2s;
+            border: 2px solid var(--secondary);
+            vertical-align: middle;
+        }
+        .social-footer a:hover {
+            background: var(--accent);
+            transform: translateY(-2px) scale(1.07);
+            border-color: var(--accent);
+        }
+        .social-footer svg {
+            width: 22px;
+            height: 22px;
+            vertical-align: middle;
+            fill: var(--secondary);
+            transition: fill 0.2s;
+        }
+        .social-footer a:hover svg {
+            fill: var(--white);
+        }
     </style>
     <script>
     // Remove fbclid from URL if present
@@ -250,6 +283,26 @@
         </section>
     </main>
     <footer>
+            <div class="social-footer">
+            <a href="mailto:shahidapervin@aoni.waseda.jp" title="Email">
+                <svg viewBox="0 0 24 24"><path d="M12 13.065l-11.99-7.57v13.365c0 1.104.896 2 2 2h19.99c1.104 0 2-.896 2-2v-13.365l-11.99 7.57zm11.99-10.065c0-1.104-.896-2-2-2h-19.99c-1.104 0-2 .896-2 2v.217l11.99 7.58 11.99-7.58v-.217z"></path></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/shahida-pervin/" target="_blank" title="LinkedIn">
+                <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.3c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75c.965 0 1.75.785 1.75 1.75s-.785 1.75-1.75 1.75zm13.5 11.3h-3v-5.6c0-1.332-.026-3.047-1.858-3.047-1.86 0-2.144 1.45-2.144 2.947v5.7h-3v-10h2.881v1.368h.041c.401-.757 1.379-1.558 2.841-1.558 3.04 0 3.6 2.001 3.6 4.605v5.585z"></path></svg>
+            </a>
+            <a href="https://x.com/SPervin_Econ" target="_blank" title="Twitter">
+                <svg viewBox="0 0 24 24"><path d="M24 4.557a9.93 9.93 0 0 1-2.825.775 4.932 4.932 0 0 0 2.165-2.724c-.957.568-2.017.981-3.149 1.2A4.92 4.92 0 0 0 16.616 3c-2.73 0-4.942 2.21-4.942 4.932 0 .386.045.762.127 1.124C7.728 8.89 4.1 6.886 1.671 3.94c-.423.728-.666 1.577-.666 2.476 0 1.708.87 3.216 2.188 4.099a4.904 4.904 0 0 1-2.239-.616c-.054 2.28 1.581 4.415 3.949 4.894a4.936 4.936 0 0 1-2.224.085c.627 1.956 2.444 3.377 4.6 3.417A9.868 9.868 0 0 1 0 21.539a13.94 13.94 0 0 0 7.548 2.212c9.051 0 14-7.496 14-13.986 0-.21-.006-.423-.016-.632A9.935 9.935 0 0 0 24 4.557z"></path></svg>
+            </a>
+            <a href="https://scholar.google.co.jp/citations?user=q9KPHucAAAAJ&hl=en" target="_blank" title="Google Scholar">
+            <!-- Google SVG -->
+            <svg viewBox="0 0 24 24"><path d="M21.35 11.1h-9.17v2.98h5.53c-.24 1.25-1.47 3.66-5.53 3.66-3.32 0-6.04-2.75-6.04-6.14s2.72-6.14 6.04-6.14c1.9 0 3.18.82 3.91 1.53l2.68-2.6C17.99 3.63 15.89 2.56 13.18 2.56c-5.06 0-9.17 4.14-9.17 9.24s4.11 9.24 9.17 9.24c5.29 0 8.78-3.7 8.78-8.93 0-.6-.07-1.16-.18-1.65zm0 0"></path></svg>
+            </a>
+    <a href="https://researchmap.jp/Shahida-Pervin" target="_blank" title="ResearchMap">
+    <!-- ResearchMap SVG (map marker style) -->
+    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+</a>
+     
+        </div>
         © 2025 Shahida Pervin | All Rights Reserved
     </footer>
 </body>
