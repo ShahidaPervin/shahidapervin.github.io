@@ -20,6 +20,34 @@
             padding: 20px;
             text-align: center;
         }
+        /* Begin header/nav styles from index.html */
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .navbar li {
+            float: left;
+        }
+        .navbar li a {
+            display: block;
+            color: #fff;
+            text-align: center;
+            padding: 16px 20px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .navbar li a:hover,
+        .navbar li a.active {
+            background-color: #007bff; /* Same as hover color */
+            color: #fff;
+        }
+        /* End header/nav styles from index.html */
         .depository {
             margin-top: 20px;
         }
@@ -29,9 +57,8 @@
         .material {
             border: 1px solid #ccc;
             padding: 30px;
-            margin: 30px 0; /* Adds spacing between each course */
-            font-weight: bold; /* Makes the text bold */
-            /*background-color: #f9f9f9; /* Optional: Adds a light background for emphasis */
+            margin: 30px 0;
+            font-weight: bold;
         }
         .publication-link {
             display: block;
@@ -40,37 +67,39 @@
     </style>
 </head>
 <body>
-<header>
-   <!--     <img src="images/logo.png" alt="Logo" class="logo"> -->
-        <nav>
+    <header>
+        <!-- Use the same logo and nav as index.html -->
+        <!-- <img src="images/logo.png" alt="Logo" class="logo"> -->
+        <nav class="navbar">
             <ul>
-             <li>   <a href="index.html">Home</a> </li>
-         <!--       <li><a href="about.html">About</a></li>  -->
+                <li><a href="index.html">Home</a></li>
+                <li><a href="Teaching.html" class="active">Teaching</a></li>
+                <!-- Uncomment/add other tabs as per your index.html -->
+                <!-- <li><a href="about.html">About</a></li> -->
             </ul>
         </nav>
     </header>
 
-        <div class="header">
-            <h1>Teaching Courses</h1>
-        </div>
-        <div class="depository">
-            <h2></h2>
-        </div>
-            <div class="material">                
-                <a href="Public-Economics.html"> Public Economics </a>
-            </div>
-            <div class="material">                
-                <a href="Data-Econometrics.html"> Data and Econometric Methods (Topics in Economics) </a>
-            </div>
-            <div class="material">                
-                <a href="Empirical-Development-Economics"> Empirical Analysis of Issues in Development Economics (Intermediate Seminar) </a>
-            </div>
-            <div class="material">                
-                <a href="https://drive.google.com/file/d/1_vY5dVgdp67lARIE6w90b1afD2HVbrAW/view?usp=drive_link" target="_blank"> Labor, Family and Public Economics (Intermediate Seminar) </a>
-            </div>
-            <div class="material">                
-                <a class="publication-link"> Basic Seminar </a>
-            </div>
-                
-    </body>
+    <div class="header">
+        <h1>Teaching Courses</h1>
+    </div>
+    <div class="depository">
+        <h2></h2>
+    </div>
+    <div class="material">                
+        <a href="Public-Economics.html"> Public Economics </a>
+    </div>
+    <div class="material">                
+        <a href="Data-Econometrics.html"> Data and Econometric Methods (Topics in Economics) </a>
+    </div>
+    <div class="material">                
+        <a href="Empirical-Development-Economics"> Empirical Analysis of Issues in Development Economics (Intermediate Seminar) </a>
+    </div>
+    <div class="material">                
+        <a href="https://drive.google.com/file/d/1_vY5dVgdp67lARIE6w90b1afD2HVbrAW/view?usp=drive_link" target="_blank"> Labor, Family and Public Economics (Intermediate Seminar) </a>
+    </div>
+    <div class="material">                
+        <a class="publication-link"> Basic Seminar </a>
+    </div>
+</body>
 </html>
