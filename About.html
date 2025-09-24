@@ -3,98 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - My Website</title>
+    <title>About - Dr. Shahida Pervin</title>
     <link rel="stylesheet" href="styles/style.css">
+    <!-- Google Fonts for Montserrat -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
 </head>
 <body>
-        <script>
+    <!-- Header Placeholder for dynamic loading -->
+    <div id="header-placeholder"></div>
+    <script>
         fetch('header.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header-placeholder').innerHTML = data;
             });
     </script>
-    <header>
-<!--        <img src="images/logo.png" alt="Logo" class="logo"> -->
-        <nav>
+
+    <main class="container">
+        <section class="about-section">
+            <h1>About Me</h1>
+            <div class="profile-header">
+                <h2>Dr. Shahida Pervin</h2>
+                <nav class="nav-links">
+                    <a href="About.html">About</a>
+                    <a href="Research.html">Research</a>
+                    <a href="Teaching.html">Teaching</a>
+                </nav>
+            </div>
+            <p>
+                I am an Assistant Professor of Economics in the Faculty of Political Science and Economics at <a href="https://www.waseda.jp/fpse/faculty-en/2024/04/01/2454/" target="_blank">Waseda University</a>, Tokyo, Japan. Previously, I taught at Meiji Gakuin University and held research positions at the Centre for Policy Dialogue (CPD) in Bangladesh, the Overseas Development Institute (ODI) in the UK, and other organizations.
+            </p>
+            <p>
+                My research interests include labor economics, development economics, microeconomics, and applied economics. I am also passionate about agricultural and public economics, as well as macroeconomics. My work spans topics such as women’s economic empowerment, food safety, and macroeconomic, health, and education indicators.
+            </p>
+            <p>
+                Currently, I am involved in several projects on migration, labor markets, and intergenerational transmission. I teach public economics, data and econometric methods, development economics, and labor economics.
+            </p>
+            <p>
+                My academic journey includes a PhD in Development Economics from the <a href="https://grips.repo.nii.ac.jp/records/2000048" target="_blank">National Graduate Institute for Policy Studies (GRIPS)</a>, Tokyo, Japan, an MSc in Economics from <a href="https://mpra.ub.uni-muenchen.de/91816/1/MPRA_paper_91816.pdf" target="_blank">Queen Mary University of London</a>, UK, and a BSS in Economics from Jagannath University, Bangladesh.
+            </p>
+            <p>
+                I am proficient in R, Stata, and LaTeX, and occasionally use Python, MATLAB, MS Office, and Eviews for research and teaching.
+            </p>
+            <p>
+                Beyond academia, I am actively involved in voluntary activities such as mentoring, scholarship guidance, leading student organizations, fundraising, tree plantation, anti-drug and anti-harassment initiatives, blood donation, and community cleaning in Bangladesh, UK, and Japan.
+            </p>
+            <p>
+                I am passionate about knowledge sharing and voluntarism. I enjoy reading, engaging in discussions, walking, hiking, and exploring places of cultural and historical significance.
+            </p>
+        </section>
+
+        <section class="education-section">
+            <h2>Education</h2>
             <ul>
-                <li><a href="index.html">Home</a></li>
-         <!--       <li><a href="about.html">About</a></li>  -->
+                <li>PhD in Development Economics, <a href="https://grips.repo.nii.ac.jp/records/2000048" target="_blank">National Graduate Institute for Policy Studies (GRIPS), Tokyo, Japan</a></li>
+                <li>MSc in Economics, <a href="https://mpra.ub.uni-muenchen.de/91816/1/MPRA_paper_91816.pdf" target="_blank">Queen Mary University of London, UK</a></li>
+                <li>BSS in Economics, Jagannath University, Dhaka, Bangladesh</li>
             </ul>
-        </nav>
-    </header>
+        </section>
 
-        <header>
-        <div style="font-family:'Montserrat',Arial,sans-serif;font-size:2rem;font-weight:700;letter-spacing:1px;">
-            Dr. Shahida Pervin
-        </div>
-        <nav class="nav-links">
-            <a href="About.html">About</a>
-            <a href="Research.html">Research</a>
-            <a href="Teaching.html">Teaching</a>
-        </nav>
-    </header>
-    
-    <main>
-        <h1>About me/Short bio</h1>
-<p>I am an Assistant Professor of Economics in the Faculty of Political Science and Economics at Waseda University, Tokyo, Japan. 
-    Previously, I taught at Meiji Gakuin University in Japan. I was a researcher at the Centre for Policy Dialogue (CPD) in Bangladesh, 
-    the Overseas Development Institute (ODI) in the UK, and several other research organizations.</p>
-
-<p>My primary research interests are labor economics, development economics, microeconomics, and empirical and applied economics. 
-    I am also interested in agricultural economics, public economics, and macroeconomics. 
-    My earlier research covered multiple issues, including women`s economic contribution and empowerment, 
-    agricultural economics and food safety, and performances of macroeconomic, health, and education indicators. 
-    I am available for research and academic collaboration.</p> 
-
-<p>Currently I am involved in three collaborative and solo research projects on migration, labor market, and intergenerational transmission.
-    I teach public economics, data and econometric methods, development economics, and labor economics. </p>
-        
-<p>I completed PhD in Development Economics at the National Graduate Institute for Policy Studies, and 
-    my PhD research focus was labor economics, labor market institutions, policies, and outcomes. 
-    The research approach was mainly empirical microanalysis, also a life cycle model. 
-    Data used in my PhD projects were labor force surveys, population censuses, business censuses, web scrapping, and an online primary survey. 
-    I completed an MSc in Economics from Queen Mary University of London in the UK, and a BSS in Economics from Jagannath University in Bangladesh. 
-    I mainly use R, Stata, and LaTex for data analysis, writing, and teaching. I infrequently use Python, MATLAB, MS Office, and Eviews packages.</p>
-
-<p>I have wide experience of being involved in various voluntary activities to increase social goods stock, some of them are mentoring students, 
-    helping in scholarship and admission preparation, leading student organizations, funds and necessary goods collection for vulnerable, 
-    tree plantation, anti-drug and against sexual harassment activities, blood donation, cleaning in Bangladesh, UK, and Japan.</p>
-
-<p>Knowledge profession and active voluntarism are my passions. 
-    I enjoy reading, talking and sharing thoughts, walking, hiking, and visiting culture and history-marking places.</p>
-
-
-    <h1>Education</h1>
-<p>PhD in Development Economics, <a href="https://grips.repo.nii.ac.jp/records/2000048"> National Graduate Institute for Policy Studies (GRIPS), Tokyo, Japan </a> </p>
-
-<p>MSc in Economics, <a href="https://mpra.ub.uni-muenchen.de/91816/1/MPRA_paper_91816.pdf"> Queen Mary University of London, London, United Kingdom </a> </p>
-
-<p>BSS in Economics, Jagannath University, Dhaka, Bangladesh </a> </p>
-
-
-<h1>Work experience</h1>
-<p>Assistant Professor, <a href="https://www.waseda.jp/fpse/faculty-en/2024/04/01/2454/"> Waseda University, Tokyo, Japan </a> </p>
-
-<p>Adjunct Faculty, Meiji Gakun University, , Tokyo, Japan </p>
-
-<p>Reviewer, Global Development Network (GDN), London, United Kingdom </p>
-  
-<p>Teaching Assistant, National Graduate Institute for Policy Studies (GRIPS), Tokyo, Japan </p>
-
-<p>Research Assistant, National Graduate Institute for Policy Studies (GRIPS), Tokyo, Japan </p>
-
-<p>Intern, Overseas Development Institute (ODI), London, United Kingdom </p>
-
-<p>Research Associate, Centre for Policy Dialogue (CPD), Dhaka, Bangladesh </p>
-     
-<p>Senior Research Associate, Centre for Policy Dialogue (CPD), Dhaka, Bangladesh </p>
-
-<p>Researcher, Unnayan Onneshan, Dhaka, Bangladesh </p>
-
-<p>Research Associate, Bangladesh Institute of Social Research, Dhaka, Bangladesh </p>
-
+        <section class="experience-section">
+            <h2>Work Experience</h2>
+            <ul>
+                <li>Assistant Professor, <a href="https://www.waseda.jp/fpse/faculty-en/2024/04/01/2454/" target="_blank">Waseda University, Tokyo, Japan</a></li>
+                <li>Adjunct Faculty, Meiji Gakuin University, Tokyo, Japan</li>
+                <li>Reviewer, Global Development Network (GDN), London, UK</li>
+                <li>Teaching Assistant & Research Assistant, National Graduate Institute for Policy Studies (GRIPS), Tokyo, Japan</li>
+                <li>Intern, Overseas Development Institute (ODI), London, UK</li>
+                <li>Senior Research Associate & Research Associate, Centre for Policy Dialogue (CPD), Dhaka, Bangladesh</li>
+                <li>Researcher, Unnayan Onneshan, Dhaka, Bangladesh</li>
+                <li>Research Associate, Bangladesh Institute of Social Research, Dhaka, Bangladesh</li>
+            </ul>
+        </section>
     </main>
+    
     <footer>
         <p>&copy; 2025 Shahida Pervin</p>
     </footer>
