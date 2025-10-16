@@ -95,6 +95,31 @@
             font-weight: normal;
         }
 
+ /* Button style for converted links — light variant */
+        .inline-link-button {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 6px 10px;
+            font-size: 0.95em;
+            color: #212529;                 /* dark text for contrast on light bg */
+            background-color: #f8f9fa;     /* light background (Bootstrap light) */
+            border: 1px solid #ced4da;     /* subtle border */
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            vertical-align: middle;
+        }
+        .inline-link-button:hover,
+        .inline-link-button:focus {
+            background-color: #e9ecef;     /* slightly darker on hover/focus */
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0,123,255,0.08); /* subtle focus ring */
+        }
+
+
+
+        
+        
         /* Responsive and mobile menu */
         .mobile-menu {
             display: none;
