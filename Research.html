@@ -1,46 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Research Profile</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            scroll-behavior: smooth; /* smooth fallback for browsers that support it */
         }
         .container {
             width: 80%;
             margin: auto;
             padding: 20px;
         }
-        .header {
-            background-color: #f2f2f2;
-            padding: 20px;
-            text-align: center;
+
+        /* Fixed header/nav (similar behavior to index.html) */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 200;
+            background: rgba(255,255,255,0.98);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        /* Begin header/nav styles matching Teaching.html */
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+        }
+        .logo {
+            font-weight: 700;
+            color: #333;
+        }
+
+        /* Begin header/nav styles matching Teaching.html / index.html */
         .navbar {
-            background-color: #333;
-            overflow: hidden;
+            background-color: transparent;
+            overflow: visible;
         }
         .navbar ul {
             list-style-type: none;
             margin: 0;
             padding: 0;
             display: flex;
+            gap: 8px;
         }
         .navbar li {
             float: left;
         }
         .navbar li a {
             display: block;
-            color: #fff;
+            color: #333;
             text-align: center;
-            padding: 16px 20px;
+            padding: 10px 12px;
             text-decoration: none;
-            transition: background 0.3s;
+            transition: background 0.3s, color 0.3s;
+            border-radius: 6px;
         }
         .navbar li a:hover,
         .navbar li a.active {
@@ -48,6 +70,11 @@
             color: #fff;
         }
         /* End header/nav styles */
+
+        .spacer {
+            height: 68px; /* approximate header height to offset fixed header */
+        }
+
         .depository {
             margin-top: 20px;
         }
@@ -67,48 +94,89 @@
             margin-bottom: 10px;
             font-weight: normal;
         }
-        @media (max-width: 700px) {
+
+        /* Responsive and mobile menu */
+        .mobile-menu {
+            display: none;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 6px 10px;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 800px) {
             .container {
-                width: 98%;
-                padding: 10px 5px;
+                width: 96%;
+                padding: 10px 8px;
             }
             .material {
-                padding: 10px 7px;
+                padding: 12px;
             }
-        }
-        @media (max-width: 600px) {
-            .container {
-                padding: 10px 5px;
+            .navbar ul {
+                display: none;
+                position: absolute;
+                right: 20px;
+                top: 60px;
+                background: #333;
+                padding: 10px;
+                border-radius: 6px;
+                flex-direction: column;
+                min-width: 180px;
+            }
+            .navbar ul.active {
+                display: flex;
             }
             .navbar li a {
-                padding: 10px 8px;
-                font-size: 15px;
+                color: #fff;
+                padding: 10px;
             }
-            .header {
-                padding: 12px;
+            .navbar li a.active {
+                background-color: #007bff;
+                color: #fff;
+            }
+            .mobile-menu {
+                display: block;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .logo {
+                font-size: 16px;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <!-- Use the same logo and nav as index.html -->
-        <!-- <img src="images/logo.png" alt="Logo" class="logo"> -->
-        <nav class="navbar">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="Research.html" class="active">Research</a></li>
-                <!-- Uncomment/add other tabs as per your index.html -->
-                <!-- <li><a href="about.html">About</a></li> -->
-            </ul>
-        </nav>
+        <div class="header-inner">
+       <!--     <div class="logo">Dr. Shahida Pervin</div> -->
+
+            <div class="mobile-menu" id="mobileMenuBtn" aria-label="Toggle navigation">☰</div>
+
+            <nav class="navbar" aria-label="Main navigation">
+                <ul id="navList">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="Research.html" class="active">Research</a></li>
+                    <li><a href="#ongoing">Ongoing</a></li>
+                    <li><a href="#publications">Publications</a></li>
+                    <li><a href="#conferences">Conference / Seminar / Talk</a></li>
+                    <li><a href="#training">Training & Workshops</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
-    
+
+    <!-- spacer to offset fixed header -->
+    <div class="spacer" aria-hidden="true"></div>
+
     <div class="container">
         <div class="header">
             <h1>Research Profile</h1>
         </div>
-        <div class="depository">
+
+
+<!-- Ongoing projects section -->
+  <div class="depository" id="ongoing">
             <h2>Ongoing project</h2>
         </div>
         <div class="material">                
@@ -116,7 +184,10 @@
             <h3>Migration and labor shortage in Japan</h3>
             <h3>Labor market effects of large scale refugee influx</h3> 
         </div>
-        <div class="depository">
+
+
+<!-- Publications -->            
+      <div class="depository" id="publications">
             <h2>Publications</h2>
         </div>
         <div class="material">
@@ -168,7 +239,10 @@
             </div>        
         </div>
             
-        <div class="depository">
+
+        
+        <!-- Conferences / Seminars / Talks -->
+        <div class="depository" id="conferences">
             <h2>Conference/Seminar/Talk</h2>
         </div>
         <div class="material">
@@ -256,7 +330,9 @@
             </div>       
         </div>
         
-        <div class="depository">
+
+        <!-- Training / Workshops -->
+        <div class="depository" id="training">
             <h2>Training, workshop, etc. as participant</h2>
         </div>
 <div class = "publication-link">
@@ -285,5 +361,83 @@
 </div>
 </div>
 
+
+ <script>
+        // Mobile menu toggle
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const navList = document.getElementById('navList');
+        mobileBtn && mobileBtn.addEventListener('click', () => {
+            navList.classList.toggle('active');
+        });
+
+        // Smooth scrolling with header offset
+        function scrollToHash(hash) {
+            if (!hash) return;
+            const target = document.querySelector(hash);
+            if (!target) return;
+            const header = document.querySelector('header');
+            const headerHeight = header ? header.offsetHeight : 0;
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+            const offset = headerHeight + 8; // slight extra spacing
+            window.scrollTo({
+                top: targetPosition - offset,
+                behavior: 'smooth'
+            });
+        }
+
+        // Attach click handlers for in-page anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                // If the anchor points to an id on this page
+                const href = this.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    // Close mobile nav if open
+                    if (navList.classList.contains('active')) {
+                        navList.classList.remove('active');
+                    }
+                    scrollToHash(href);
+                    // update active class on navbar links
+                    document.querySelectorAll('.navbar a').forEach(a => a.classList.remove('active'));
+                    if (this.classList) this.classList.add('active');
+                }
+            });
+        });
+
+        // If page loaded with a hash in URL, scroll to it with offset
+        window.addEventListener('load', () => {
+            if (location.hash) {
+                // small timeout to allow layout to settle
+                setTimeout(() => scrollToHash(location.hash), 50);
+            }
+        });
+
+        // Optional: update active nav link while scrolling (simple approach)
+        const sectionAnchors = Array.from(document.querySelectorAll('#ongoing, #publications, #conferences, #training'));
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const headerHeight = header ? header.offsetHeight : 0;
+            const scrollPos = window.pageYOffset + headerHeight + 20;
+            let currentId = null;
+            for (const sec of sectionAnchors) {
+                if (sec.offsetTop <= scrollPos) {
+                    currentId = sec.id;
+                }
+            }
+            document.querySelectorAll('.navbar a').forEach(a => {
+                a.classList.remove('active');
+                const href = a.getAttribute('href');
+                if (href === '#' + currentId) {
+                    a.classList.add('active');
+                }
+                // keep Research.html link as active default when no section in view
+                if (!currentId && a.getAttribute('href') === 'Research.html') {
+                    a.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+    
 </body>
 </html>
