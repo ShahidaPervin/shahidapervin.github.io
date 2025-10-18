@@ -1,2 +1,2 @@
-# This is Dr Shahida Pervin's professional website. The website is under construction and not yet fully developed.
-# shahidapervin.github.io
+# Dr Shahida Pervin: shahidapervin.github.io
+This is Dr Shahida Pervin's professional website. The website is under construction and yet to be fully developed.
