@@ -34,6 +34,29 @@
             margin: 10px 0;
         }
 
+    /* Add this to your existing <style> section */
+    .material-links {
+        display: flex;
+        gap: 15px; /* Distance/spacing between buttons */
+        flex-wrap: wrap;
+        margin-top: 15px;
+    }
+    
+    .material-links a {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+        font-size: 14px;
+    }
+    
+    .material-links a:hover {
+        background-color: #0056b3;
+    }
+
         .return-button {
             display: inline-block;
             margin-top: 20px;
@@ -71,16 +94,17 @@
     
 <body>
 
+<!-- Then update your L1 section to: -->
 <div class="material">
-    <h3>                    
-L1 Introduction
-    </h3>
-<a href="https://www.dropbox.com/scl/fi/o6ebboog733zpj2nb55r7/intro_L01_SP_slides.pdf?rlkey=noznlrqo65m08wq8i04fufzkp&dl=0" target="_blank">PDF</a> 
-<a href="https://www.dropbox.com/scl/fi/u0u77vje4dpfd98mblvug/intro_L01_SP_slides.tex?rlkey=gl2dma8pyxfrdbovozx8jibrx&dl=0"_blank">LaTeX</a>    
-<a href="https://www.dropbox.com/scl/fi/yaamnftj459kxwlc1kd7e/slides_interactive.html?rlkey=h8ad7p89k9jbs63ptju3z6km1&dl=0"_blank">HTML</a>    
+    <h3>L1 Introduction</h3>
+    <div class="material-links">
+        <a href="https://www.dropbox.com/scl/fi/o6ebboog733zpj2nb55r7/intro_L01_SP_slides.pdf?rlkey=noznlrqo65m08wq8i04fufzkp&dl=0" target="_blank">PDF</a>
+        <a href="https://www.dropbox.com/scl/fi/u0u77vje4dpfd98mblvug/intro_L01_SP_slides.tex?rlkey=gl2dma8pyxfrdbovozx8jibrx&dl=0" target="_blank">LaTeX</a>
+        <a href="https://www.dropbox.com/scl/fi/yaamnftj459kxwlc1kd7e/slides_interactive.html?rlkey=h8ad7p89k9jbs63ptju3z6km1&dl=0" target="_blank">HTML</a>
+    </div>
 </div>
-                    
-            <div class="material">
+
+    <div class="material">
                 <h3>
                 <a href="#" target="_blank">Lecture 2: Issues and Indicators</a>
                 </h3>
