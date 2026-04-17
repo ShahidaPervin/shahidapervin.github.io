@@ -5,69 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teaching</title>
 
-    <style>
-        body {
-            font-family: "Segoe UI", sans-serif;
-            margin: 0;
-            background-color: #f9fafb;
-       /*   padding: 0;   */
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            padding: 20px;
-        }
-        .header {
-            background-color: #f2f2f2;
-            padding: 20px;
-            text-align: center;
-        }
-       
-        /* Begin header/nav styles from index.html */
-        .navbar {
-            background-color: #1f2937;
-        /*    overflow: hidden; */
-        }
-        .navbar ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
-        .navbar li {
-            float: left;
-        }
-        .navbar li a {
-            display: block;
-            color: #fff;
-            text-align: center;
-            padding: 16px 20px;
-            text-decoration: none;
-            transition: background 0.3s;
-        }
-        .navbar li a:hover,
-        .navbar li a.active {
-            background-color: #007bff; /* Same as hover color */
-            color: #fff;
-        }
-        /* End header/nav styles from index.html */
-        .depository {
-            margin-top: 20px;
-        }
-        .depository h2 {
-            text-align: center;
-        }
-        .material {
-            border: 1px solid #ccc;
-            padding: 30px;
-            margin: 30px 0;
-            font-weight: bold;
-        }
-        .publication-link {
-            display: block;
-            margin-bottom: 10px;
-        }
-    </style>
+<style>
+body {
+    font-family: "Segoe UI", sans-serif;
+    margin: 0;
+    background-color: #f9fafb;
+    color: #1f2937;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #1f2937;
+}
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+.navbar li a {
+    display: block;
+    color: #fff;
+    padding: 16px 20px;
+    text-decoration: none;
+}
+.navbar li a:hover,
+.navbar li a.active {
+    background-color: #2563eb;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    padding: 50px 20px 20px;
+}
+.header h1 {
+    margin: 0;
+    font-size: 2.2rem;
+}
+.header p {
+    color: #6b7280;
+    margin-top: 10px;
+}
+
+/* Section */
+.section-title {
+    margin-top: 40px;
+    font-size: 1.4rem;
+    border-left: 4px solid #2563eb;
+    padding-left: 10px;
+}
+
+/* Cards */
+.course-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.course-card {
+    background: #fff;
+    padding: 20px 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.course-card a {
+    text-decoration: none;
+    color: #2563eb;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.course-card span {
+    display: block;
+    margin-top: 5px;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+</style>
+
+
 </head>
 <body>
     <header>
@@ -83,27 +114,53 @@
         </nav>
     </header>
 
-    <div class="header">
-        <h1>Teaching Courses</h1>
+<div class="header">
+    <h1>Teaching</h1>
+    <p>Courses and seminars I have taught</p>
+</div>
+
+<div class="container">
+
+    <div class="section-title">Courses</div>
+    <div class="course-grid">
+
+        <div class="course-card">
+            <a href="Public-Economics.html">Public Economics</a>
+            <span>Core course</span>
+        </div>
+
+        <div class="course-card">
+            <a href="Data-Econometrics.html">Data and Econometric Methods</a>
+            <span>Topics in Economics</span>
+        </div>
+
     </div>
-    <div class="depository">
-        <h2></h2>
+
+    <div class="section-title">Seminars</div>
+    <div class="course-grid">
+
+        <div class="course-card">
+            <a href="Empirical-Development-Economics.html">
+                Empirical Analysis of Development Economics
+            </a>
+            <span>Intermediate Seminar</span>
+        </div>
+
+        <div class="course-card">
+            <a href="https://drive.google.com/file/d/1_vY5dVgdp67lARIE6w90b1afD2HVbrAW/view?usp=drive_link" target="_blank">
+                Labor, Family and Public Economics
+            </a>
+            <span>Intermediate Seminar</span>
+        </div>
+
+        <div class="course-card">
+            <a href="#">Basic Seminar</a>
+            <span>Introductory</span>
+        </div>
+
     </div>
-    <div class="material">                
-        <a href="Public-Economics.html"> Public Economics </a>
-    </div>
-    <div class="material">                
-        <a href="Data-Econometrics.html"> Data and Econometric Methods (Topics in Economics) </a>
-    </div>
-    <div class="material">                
-        <a href="Empirical-Development-Economics"> Empirical Analysis of Issues in Development Economics (Intermediate Seminar) </a>
-    </div>
-    <div class="material">                
-        <a href="https://drive.google.com/file/d/1_vY5dVgdp67lARIE6w90b1afD2HVbrAW/view?usp=drive_link" target="_blank"> Labor, Family and Public Economics (Intermediate Seminar) </a>
-    </div>
-    <div class="material">                
-        <a class="publication-link"> Basic Seminar </a>
-    </div>
+
+</div>
 </body>
 </html>
 
