@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>R Econometrics Practice — Waseda University Lecture #3</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #ffffff; --bg2: #f5f5f3; --bg3: #ededea;
+    --text: #1a1a18; --text2: #5f5e5a; --text3: #888780;
+    --border: rgba(0,0,0,0.12); --border2: rgba(0,0,0,0.22);
+    --blue: #378ADD; --blue-bg: #e6f1fb; --blue-text: #0C447C;
+    --green: #1D9E75; --green-bg: #e1f5ee; --green-text: #085041;
+    --red: #D85A30; --red-bg: #faece7; --red-text: #712B13;
+    --amber: #EF9F27; --amber-bg: #faeeda; --amber-text: #633806;
+    --success-bg: #e1f5ee; --success-text: #085041;
+    --error-bg: #faece7; --error-text: #993C1D;
+    --warn-bg: #faeeda; --warn-text: #854F0B;
+    --radius: 8px; --radius-lg: 12px;
+    --mono: 'Courier New', Courier, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1c1a; --bg2: #242422; --bg3: #2c2c2a;
+      --text: #f0efe8; --text2: #b4b2a9; --text3: #888780;
+      --border: rgba(255,255,255,0.12); --border2: rgba(255,255,255,0.22);
+      --blue-bg: #042C53; --blue-text: #B5D4F4;
+      --green-bg: #04342C; --green-text: #9FE1CB;
+      --red-bg: #4A1B0C; --red-text: #F5C4B3;
+      --amber-bg: #412402; --amber-text: #FAC775;
+      --success-bg: #04342C; --success-text: #9FE1CB;
+      --error-bg: #4A1B0C; --error-text: #F5C4B3;
+      --warn-bg: #412402; --warn-text: #FAC775;
+    }
+  }
+
+  body { font-family: var(--sans); background: var(--bg3); color: var(--text); font-size: 15px; line-height: 1.6; }
+
+  header { background: var(--bg); border-bottom: 0.5px solid var(--border); padding: 1rem 2rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  header h1 { font-size: 17px; font-weight: 500; color: var(--text); }
+  header p { font-size: 13px; color: var(--text2); }
+  .badge { font-size: 11px; padding: 3px 9px; border-radius: 20px; background: var(--blue-bg); color: var(--blue-text); font-weight: 500; }
+
+  .main-tabs { display: flex; gap: 0; background: var(--bg); border-bottom: 0.5px solid var(--border); padding: 0 2rem; }
+  .main-tab { padding: 12px 18px; font-size: 14px; cursor: pointer; color: var(--text2); border: none; background: transparent; font-family: var(--sans); border-bottom: 2px solid transparent; transition: color .15s; }
+  .main-tab:hover { color: var(--text); }
+  .main-tab.active { color: var(--text); border-bottom-color: var(--blue); font-weight: 500; }
+
+  .page { display: none; padding: 1.5rem 2rem; max-width: 960px; margin: 0 auto; }
+  .page.active { display: block; }
+
+  /* ── Viz page ── */
+  .section-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.25rem; }
+  .stab { padding: 5px 13px; font-size: 12px; border: 0.5px solid var(--border2); border-radius: var(--radius); background: transparent; cursor: pointer; color: var(--text2); font-family: var(--sans); }
+  .stab.active { background: var(--bg2); color: var(--text); font-weight: 500; border-color: var(--border2); }
+  .panel { display: none; } .panel.active { display: block; }
+  .card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1rem 1.25rem; margin-bottom: 1rem; }
+  .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin-bottom: 1.25rem; }
+  .metric { background: var(--bg2); border-radius: var(--radius); padding: .75rem 1rem; }
+  .metric-label { font-size: 12px; color: var(--text2); margin-bottom: 4px; }
+  .metric-value { font-size: 20px; font-weight: 500; }
+  .chart-wrap { position: relative; width: 100%; height: 280px; margin-bottom: 1rem; }
+  .controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 1rem; }
+  .ctrl { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text2); }
+  .ctrl input[type=range] { width: 90px; accent-color: var(--blue); }
+  .ctrl span { font-weight: 500; color: var(--text); min-width: 26px; }
+  .ctrl select { font-size: 13px; padding: 4px 8px; border: 0.5px solid var(--border2); border-radius: var(--radius); background: var(--bg); color: var(--text); }
+  .interpret { background: var(--bg2); border-radius: var(--radius); padding: .75rem 1rem; font-size: 13px; color: var(--text2); line-height: 1.6; margin-top: .75rem; }
+  .interpret strong { color: var(--text); font-weight: 500; }
+  .reg-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: .75rem; }
+  .reg-table th { text-align: left; color: var(--text2); font-weight: 400; padding: 4px 8px; border-bottom: 0.5px solid var(--border); }
+  .reg-table td { padding: 5px 8px; border-bottom: 0.5px solid var(--border); }
+  .reg-table tr:last-child td { border-bottom: none; }
+  .stitle { font-size: 14px; font-weight: 500; margin-bottom: .75rem; }
+
+  /* ── Practice page ── */
+  .ex-nav { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.25rem; }
+  .ex-btn { padding: 5px 12px; font-size: 12px; border: 0.5px solid var(--border2); border-radius: var(--radius); background: transparent; cursor: pointer; color: var(--text2); font-family: var(--sans); }
+  .ex-btn.active { background: var(--bg2); color: var(--text); font-weight: 500; }
+  .ex-btn.done { border-color: var(--green); color: var(--green-text); }
+  .progress { display: flex; gap: 6px; align-items: center; margin-bottom: 1.25rem; }
+  .prog-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border2); flex-shrink: 0; }
+  .prog-dot.done { background: var(--green); }
+  .prog-dot.active { background: var(--blue); }
+  .prog-label { font-size: 12px; color: var(--text2); margin-left: 4px; }
+  .task-card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1rem 1.25rem; margin-bottom: 1rem; }
+  .task-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; color: var(--text3); margin-bottom: 6px; }
+  .task-text { font-size: 14px; color: var(--text); line-height: 1.6; }
+  .task-text code { font-family: var(--mono); font-size: 12px; background: var(--bg2); padding: 1px 5px; border-radius: 4px; }
+  textarea#codeEditor { width: 100%; min-height: 140px; font-family: var(--mono); font-size: 13px; padding: 10px 12px; border: 0.5px solid var(--border2); border-radius: var(--radius); background: var(--bg2); color: var(--text); resize: vertical; line-height: 1.55; outline: none; margin-bottom: 10px; }
+  textarea#codeEditor:focus { border-color: var(--blue); box-shadow: 0 0 0 2px rgba(55,138,221,0.18); }
+  .btn-row { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
+  .btn { padding: 7px 16px; font-size: 13px; font-family: var(--sans); border: 0.5px solid var(--border2); border-radius: var(--radius); background: transparent; cursor: pointer; color: var(--text); font-weight: 500; }
+  .btn:hover { background: var(--bg2); }
+  .btn.primary { border-color: var(--blue); color: var(--blue-text); }
+  .btn.primary:hover { background: var(--blue-bg); }
+  .output-area { border: 0.5px solid var(--border); border-radius: var(--radius); padding: 10px 12px; font-family: var(--mono); font-size: 12.5px; line-height: 1.6; min-height: 60px; background: var(--bg); white-space: pre-wrap; margin-bottom: 10px; color: var(--text); }
+  .output-area.success { border-color: var(--green); }
+  .output-area.error { border-color: var(--red); color: var(--error-text); }
+  .feedback { font-size: 13px; padding: 8px 12px; border-radius: var(--radius); line-height: 1.5; margin-bottom: 10px; }
+  .feedback.correct { background: var(--success-bg); color: var(--success-text); }
+  .feedback.wrong { background: var(--error-bg); color: var(--error-text); }
+  .hint-text { font-size: 13px; padding: 8px 12px; border-radius: var(--radius); background: var(--warn-bg); color: var(--warn-text); margin-bottom: 10px; line-height: 1.55; display: none; }
+  .hint-text.show { display: block; }
+  .plot-wrap { position: relative; width: 100%; height: 260px; display: none; margin-top: 10px; }
+
+  /* ── Reference page ── */
+  .ref-section { margin-bottom: 2rem; }
+  .ref-section h2 { font-size: 15px; font-weight: 500; color: var(--blue-text); margin-bottom: .75rem; padding-bottom: 6px; border-bottom: 0.5px solid var(--border); }
+  .ref-section h3 { font-size: 13px; font-weight: 500; color: var(--text); margin: .75rem 0 .4rem; }
+  .ref-section p, .ref-section li { font-size: 13px; color: var(--text2); line-height: 1.65; }
+  .ref-section ul { padding-left: 1.25rem; }
+  pre { background: var(--bg2); border: 0.5px solid var(--border); border-radius: var(--radius); padding: .75rem 1rem; font-family: var(--mono); font-size: 12.5px; line-height: 1.6; overflow-x: auto; color: var(--text); margin: .5rem 0; }
+  .kw { color: #185FA5; } .fn { color: #0F6E56; } .str { color: #993C1D; } .cm { color: var(--text3); font-style: italic; }
+
+  footer { text-align: center; font-size: 12px; color: var(--text3); padding: 2rem; border-top: 0.5px solid var(--border); margin-top: 2rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>R Econometrics — Interactive Lecture #3</h1>
+    <p>Topics in Economics · Waseda University · Spring 2026 · Stock &amp; Watson Ch. 2–3</p>
+  </div>
+  <span class="badge">Shahida Pervin</span>
+</header>
+
+<div class="main-tabs">
+  <button class="main-tab active" onclick="switchMain('viz')">Interactive visualizations</button>
+  <button class="main-tab" onclick="switchMain('practice')">Code practice</button>
+  <button class="main-tab" onclick="switchMain('ref')">R reference</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 1 — INTERACTIVE VISUALIZATIONS
+═══════════════════════════════════════════════ -->
+<div id="page-viz" class="page active">
+
+  <div class="section-tabs">
+    <button class="stab active" onclick="switchViz('scatter')">§2 Scatter plot</button>
+    <button class="stab" onclick="switchViz('regression')">§3 OLS regression</button>
+    <button class="stab" onclick="switchViz('histogram')">§4 Histogram</button>
+    <button class="stab" onclick="switchViz('dummy')">§5 Dummy variable</button>
+    <button class="stab" onclick="switchViz('exercise')">§6 Exercises</button>
+  </div>
+
+  <!-- Scatter -->
+  <div id="viz-scatter" class="panel active">
+    <div class="card">
+      <div class="stitle">Scatter plot — Student-Teacher Ratio vs. Test Score</div>
+      <div class="controls">
+        <div class="ctrl">Zoom X: <input type="range" id="zx1" min="14" max="20" value="14" step="0.5" oninput="renderScatter()"> <span id="zx1v">14</span> – <input type="range" id="zx2" min="20" max="26" value="26" step="0.5" oninput="renderScatter()"> <span id="zx2v">26</span></div>
+        <div class="ctrl">Zoom Y: <input type="range" id="zy1" min="600" max="660" value="600" step="5" oninput="renderScatter()"> <span id="zy1v">600</span> – <input type="range" id="zy2" min="640" max="720" value="720" step="5" oninput="renderScatter()"> <span id="zy2v">720</span></div>
+        <div class="ctrl"><label><input type="checkbox" id="showLine" checked onchange="renderScatter()"> OLS line</label></div>
+      </div>
+      <div class="chart-wrap"><canvas id="scatterChart"></canvas></div>
+      <div class="interpret">Mirrors <strong>Sections 2–3</strong>. Each dot = one of 420 California school districts. Zoom sliders replicate <code>coord_cartesian()</code>. Toggle the OLS line on/off.</div>
+    </div>
+  </div>
+
+  <!-- Regression -->
+  <div id="viz-regression" class="panel">
+    <div class="card">
+      <div class="stitle">OLS regression results — testscr ~ str</div>
+      <div class="metrics" id="reg-metrics"></div>
+      <table class="reg-table">
+        <tr><th>Term</th><th>Estimate</th><th>Std. error</th><th>t-stat</th><th>p-value</th></tr>
+        <tbody id="reg-coef"></tbody>
+      </table>
+      <div class="stitle" style="margin-top:1rem;">Residual plot</div>
+      <div class="chart-wrap"><canvas id="residChart"></canvas></div>
+      <div class="interpret" id="reg-interp"></div>
+    </div>
+  </div>
+
+  <!-- Histogram -->
+  <div id="viz-histogram" class="panel">
+    <div class="card">
+      <div class="stitle">Distribution of Student-Teacher Ratio</div>
+      <div class="controls">
+        <div class="ctrl">Binwidth: <input type="range" id="binw" min="0.25" max="3" step="0.25" value="0.5" oninput="renderHistogram()"> <span id="binwv">0.5</span></div>
+        <div class="ctrl"><label><input type="checkbox" id="showDensity" checked onchange="renderHistogram()"> Density curve</label></div>
+        <div class="ctrl"><label><input type="checkbox" id="showMean" checked onchange="renderHistogram()"> Mean line</label></div>
+      </div>
+      <div class="chart-wrap"><canvas id="histChart"></canvas></div>
+      <div class="metrics" id="hist-metrics"></div>
+      <div class="interpret">Replicates <strong>Section 4</strong>: <code>geom_histogram()</code>, density overlay via <code>geom_density()</code>, and mean line from <code>geom_vline(xintercept = mean(str))</code>.</div>
+    </div>
+  </div>
+
+  <!-- Dummy -->
+  <div id="viz-dummy" class="panel">
+    <div class="card">
+      <div class="stitle">Dummy variable regression — str20 (STR &lt; cutoff)</div>
+      <div class="controls">
+        <div class="ctrl">Cutoff: <input type="range" id="cutoff" min="17" max="23" step="0.5" value="20" oninput="renderDummy()"> <span id="cutoffv">20</span></div>
+      </div>
+      <div class="metrics" id="dummy-metrics"></div>
+      <table class="reg-table"><tr><th>Group</th><th>N</th><th>Mean score</th></tr><tbody id="dummy-groups"></tbody></table>
+      <div class="chart-wrap" style="height:220px;"><canvas id="dummyChart"></canvas></div>
+      <div class="interpret" id="dummy-interp"></div>
+    </div>
+  </div>
+
+  <!-- Exercise -->
+  <div id="viz-exercise" class="panel">
+    <div class="card">
+      <div class="controls">
+        <div class="ctrl">Dataset: <select id="exDataset" onchange="renderExercise()"><option value="cars">§6A — cars (speed vs dist)</option><option value="mtcars">§6B — mtcars (weight histogram)</option></select></div>
+      </div>
+      <div class="stitle" id="ex-title"></div>
+      <div class="chart-wrap"><canvas id="exChart"></canvas></div>
+      <div class="metrics" id="ex-metrics"></div>
+      <table class="reg-table"><tr><th>Term</th><th>Estimate</th><th>Std. error</th><th>t-stat</th><th>p-value</th></tr><tbody id="ex-coef"></tbody></table>
+      <div class="interpret" id="ex-interp"></div>
+    </div>
+  </div>
+
+</div><!-- /page-viz -->
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 2 — CODE PRACTICE
+═══════════════════════════════════════════════ -->
+<div id="page-practice" class="page">
+
+  <div class="ex-nav" id="exNav"></div>
+  <div class="progress" id="progress"></div>
+  <div class="task-card" id="taskCard"></div>
+  <div class="hint-text" id="hintBox"></div>
+  <textarea id="codeEditor" spellcheck="false" placeholder="Type your R code here... (Ctrl+Enter to run)"></textarea>
+  <div class="btn-row">
+    <button class="btn primary" onclick="runCode()">Run code</button>
+    <button class="btn" onclick="showHint()">Show hint</button>
+    <button class="btn" onclick="showSolution()">Show solution</button>
+    <button class="btn" onclick="nextEx()" id="nextBtn" style="display:none">Next exercise &rarr;</button>
+  </div>
+  <div class="output-area" id="outputArea">Output will appear here...</div>
+  <div class="feedback" id="feedbackBox" style="display:none"></div>
+  <div class="plot-wrap" id="plotWrap"><canvas id="plotCanvas"></canvas></div>
+
+</div><!-- /page-practice -->
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 3 — R REFERENCE
+═══════════════════════════════════════════════ -->
+<div id="page-ref" class="page">
+
+  <div class="ref-section">
+    <h2>Section 0–1 · Setup &amp; packages</h2>
+    <pre><span class="fn">rm</span>(<span class="kw">list</span> = <span class="fn">ls</span>())          <span class="cm"># clear all variables</span>
+<span class="fn">cat</span>(<span class="str">"\014"</span>)              <span class="cm"># clear console</span>
+<span class="fn">library</span>(ggplot2)         <span class="cm"># grammar-of-graphics plotting</span>
+<span class="fn">library</span>(haven)           <span class="cm"># read Stata .dta files</span></pre>
+  </div>
+
+  <div class="ref-section">
+    <h2>Section 2 · Load &amp; explore data</h2>
+    <pre>caschool &lt;- <span class="fn">read_dta</span>(<span class="str">"caschool.dta"</span>)
+<span class="fn">head</span>(caschool)           <span class="cm"># first 6 rows</span>
+
+<span class="cm"># Basic scatter plot</span>
+<span class="fn">ggplot</span>(caschool, <span class="fn">aes</span>(x = str, y = testscr)) + <span class="fn">geom_point</span>()
+
+<span class="cm"># Zoom in with coord_cartesian()</span>
+g &lt;- <span class="fn">ggplot</span>(caschool, <span class="fn">aes</span>(x = str, y = testscr)) + <span class="fn">geom_point</span>()
+gg &lt;- g + <span class="fn">coord_cartesian</span>(xlim = <span class="fn">c</span>(18, 23), ylim = <span class="fn">c</span>(630, 660))
+gg</pre>
+    <h3>Key variables</h3>
+    <ul>
+      <li><code>str</code> — Student-Teacher Ratio (students per teacher)</li>
+      <li><code>testscr</code> — Average test score (reading + math)</li>
+    </ul>
+  </div>
+
+  <div class="ref-section">
+    <h2>Section 3 · OLS regression</h2>
+    <pre><span class="cm"># Fit simple OLS:  testscr = β₀ + β₁·str + ε</span>
+lreg &lt;- <span class="fn">lm</span>(formula = testscr ~ str, data = mydata)
+<span class="fn">summary</span>(lreg)            <span class="cm"># coefficients, SEs, t-stats, R²</span>
+
+<span class="cm"># Plot data + regression line</span>
+<span class="fn">plot</span>(mydata, pch = 20, col = <span class="str">"green"</span>)
+<span class="fn">abline</span>(lreg)
+
+<span class="cm"># Residual plot</span>
+<span class="fn">plot</span>(lreg$residuals, pch = 20, col = <span class="str">"red"</span>)</pre>
+    <h3>Interpretation</h3>
+    <ul>
+      <li><strong>β₀</strong> — intercept (predicted score when STR = 0)</li>
+      <li><strong>β₁</strong> — slope (score change per 1-unit increase in STR)</li>
+      <li><strong>R²</strong> — share of variance in testscr explained by STR</li>
+      <li><strong>Residuals</strong> — observed minus predicted; should look random</li>
+    </ul>
+  </div>
+
+  <div class="ref-section">
+    <h2>Section 4 · Histograms &amp; density</h2>
+    <pre><span class="cm"># Basic histogram</span>
+<span class="fn">ggplot</span>(mydata, <span class="fn">aes</span>(x = str)) + <span class="fn">geom_histogram</span>(binwidth = 0.5)
+
+<span class="cm"># Add mean line</span>
+h &lt;- <span class="fn">ggplot</span>(mydata, <span class="fn">aes</span>(x = str)) +
+  <span class="fn">geom_histogram</span>(binwidth = 0.5, color = <span class="str">"green"</span>, fill = <span class="str">"red"</span>)
+h + <span class="fn">geom_vline</span>(<span class="fn">aes</span>(xintercept = <span class="fn">mean</span>(str)),
+               color = <span class="str">"yellow"</span>, linetype = <span class="str">"dashed"</span>, size = 2)
+
+<span class="cm"># Density overlay (rescale y to density first)</span>
+<span class="fn">ggplot</span>(mydata, <span class="fn">aes</span>(x = str)) +
+  <span class="fn">geom_histogram</span>(binwidth = 0.5, <span class="fn">aes</span>(y = ..density..), fill = <span class="str">"white"</span>, color = <span class="str">"black"</span>) +
+  <span class="fn">geom_density</span>(alpha = 0.2, fill = <span class="str">"green"</span>)</pre>
+  </div>
+
+  <div class="ref-section">
+    <h2>Section 5 · Prediction &amp; dummy variables</h2>
+    <pre><span class="cm"># Generate fitted values</span>
+newdata$yhat &lt;- <span class="fn">predict</span>(lreg)
+
+<span class="cm"># Create dummy variable: 1 if STR &lt; 20, else 0</span>
+newdata$str20 &lt;- <span class="fn">ifelse</span>(newdata$str &lt; 20, 1, 0)
+
+<span class="cm"># Dummy regression</span>
+lreg_dum &lt;- <span class="fn">lm</span>(formula = testscr ~ str20, data = newdata)
+<span class="fn">summary</span>(lreg_dum)
+
+<span class="cm"># Verify: group means should equal β̂₁</span>
+<span class="fn">mean</span>(newdata$testscr[newdata$str20 == 1])   <span class="cm"># small class</span>
+<span class="fn">mean</span>(newdata$testscr[newdata$str20 == 0])   <span class="cm"># large class</span></pre>
+    <h3>Key insight</h3>
+    <p>The coefficient on <code>str20</code> equals the difference in group means. This is because <code>lm(y ~ d)</code> with a binary <code>d</code> is equivalent to a two-sample means comparison.</p>
+  </div>
+
+  <div class="ref-section">
+    <h2>Section 6 · Built-in datasets (exercises)</h2>
+    <pre><span class="cm"># §6A — cars: stopping distance vs speed</span>
+lreg &lt;- <span class="fn">lm</span>(dist ~ speed, data = cars)
+<span class="fn">summary</span>(lreg)
+<span class="fn">plot</span>(cars, pch = 2, col = <span class="str">"green"</span>); <span class="fn">abline</span>(lreg)
+<span class="fn">plot</span>(lreg$residuals, pch = 10, col = <span class="str">"red"</span>)
+
+<span class="cm"># §6B — mtcars: distribution of car weight</span>
+<span class="fn">ggplot</span>(mtcars, <span class="fn">aes</span>(x = wt)) +
+  <span class="fn">geom_histogram</span>(binwidth = 0.5, <span class="fn">aes</span>(y = ..density..), fill = <span class="str">"white"</span>, color = <span class="str">"black"</span>) +
+  <span class="fn">geom_density</span>(alpha = 0.2, fill = <span class="str">"green"</span>) +
+  <span class="fn">geom_vline</span>(<span class="fn">aes</span>(xintercept = <span class="fn">mean</span>(wt)), color = <span class="str">"yellow"</span>, linetype = <span class="str">"dashed"</span>, size = 2)</pre>
+  </div>
+
+  <div class="ref-section">
+    <h2>Quick reference: common functions</h2>
+    <table class="reg-table" style="font-size:13px;">
+      <tr><th>Function</th><th>Purpose</th></tr>
+      <tr><td><code>lm(y ~ x, data)</code></td><td>Fit OLS linear model</td></tr>
+      <tr><td><code>summary(model)</code></td><td>Coefficients, SEs, t-stats, R²</td></tr>
+      <tr><td><code>predict(model)</code></td><td>Fitted (predicted) values ŷ</td></tr>
+      <tr><td><code>model$residuals</code></td><td>Residuals (y − ŷ)</td></tr>
+      <tr><td><code>abline(model)</code></td><td>Add OLS line to base plot</td></tr>
+      <tr><td><code>ifelse(cond, 1, 0)</code></td><td>Create dummy variable</td></tr>
+      <tr><td><code>mean(x)</code>, <code>sd(x)</code></td><td>Descriptive statistics</td></tr>
+      <tr><td><code>head(df)</code>, <code>nrow(df)</code></td><td>Inspect data frame</td></tr>
+      <tr><td><code>geom_point()</code></td><td>Scatter plot layer (ggplot2)</td></tr>
+      <tr><td><code>geom_histogram(binwidth)</code></td><td>Histogram layer</td></tr>
+      <tr><td><code>geom_density(alpha)</code></td><td>Density curve overlay</td></tr>
+      <tr><td><code>geom_vline(aes(xintercept))</code></td><td>Vertical reference line</td></tr>
+      <tr><td><code>coord_cartesian(xlim, ylim)</code></td><td>Zoom without dropping data</td></tr>
+    </table>
+  </div>
+
+</div><!-- /page-ref -->
+
+<footer>
+  Topics in Economics · Lecture #3 · Waseda University · Spring 2026 &nbsp;|&nbsp;
+  Reference: Stock &amp; Watson, <em>Introduction to Econometrics</em>, 3rd ed., Ch. 2–3
+</footer>
+
+<script>
+/* ═══════════════════════ DATA ═══════════════════════ */
+function rng(s){let x=Math.sin(s)*10000;return x-Math.floor(x);}
+const CA_STR=[],CA_TSC=[];
+for(let i=0;i<420;i++){CA_STR.push(+(14+rng(i*7+1)*12).toFixed(2));CA_TSC.push(+(698-2.28*CA_STR[i]+rng(i*13+3)*18-9).toFixed(1));}
+const CARS_S=[4,4,7,7,8,9,10,10,10,11,11,12,12,12,12,13,13,13,13,14,14,14,14,15,15,15,16,16,17,17,17,18,18,18,18,19,19,19,20,20,20,20,20,22,23,24,24,24,24,25];
+const CARS_D=[2,10,4,22,16,10,18,26,34,17,28,14,20,24,28,26,34,34,46,26,36,60,80,20,26,54,32,40,32,40,50,42,56,76,84,36,46,68,32,48,52,56,64,66,54,70,92,93,120,85];
+const MTCARS_WT=[2.62,2.875,2.32,3.215,3.44,3.46,3.57,3.19,3.15,3.44,3.44,4.07,3.73,3.78,5.25,5.424,5.345,2.2,1.615,1.835,2.465,3.52,3.435,3.84,3.845,1.935,2.14,1.513,3.17,2.77,3.57,2.78];
+
+/* ═══════════════════════ STATS ═══════════════════════ */
+function ols(xs,ys){
+  const n=xs.length,mx=xs.reduce((a,b)=>a+b)/n,my=ys.reduce((a,b)=>a+b)/n;
+  let sxx=0,sxy=0;
+  for(let i=0;i<n;i++){sxx+=(xs[i]-mx)**2;sxy+=(xs[i]-mx)*(ys[i]-my);}
+  const b1=sxy/sxx,b0=my-b1*mx;
+  const yhat=xs.map(x=>b0+b1*x);
+  const res=ys.map((y,i)=>y-yhat[i]);
+  const sse=res.reduce((a,b)=>a+b*b,0),sst=ys.reduce((a,y)=>a+(y-my)**2,0);
+  const r2=1-sse/sst,s2=sse/(n-2);
+  const se_b1=Math.sqrt(s2/sxx),se_b0=Math.sqrt(s2*(1/n+mx*mx/sxx));
+  const t_b0=b0/se_b0,t_b1=b1/se_b1;
+  function pval(t){const at=Math.abs(t),p=2*(1-normCDF(at));return p<0.001?'<0.001':p.toFixed(4);}
+  return{b0,b1,r2,n,res,yhat,se_b0,se_b1,t_b0,t_b1,p_b0:pval(t_b0),p_b1:pval(t_b1)};
+}
+function normCDF(x){const a1=0.254829592,a2=-0.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=0.3275911;const t=1/(1+p*x);return 1-(a1*t+a2*t*t+a3*t**3+a4*t**4+a5*t**5)*Math.exp(-x*x/2);}
+function mean(a){return a.reduce((s,v)=>s+v,0)/a.length;}
+function std(a){const m=mean(a);return Math.sqrt(a.reduce((s,v)=>s+(v-m)**2,0)/a.length);}
+function kernelDensity(data,h,npts=80){
+  const mn=Math.min(...data)-1,mx=Math.max(...data)+1;
+  const xs=Array.from({length:npts},(_,i)=>mn+(mx-mn)*i/(npts-1));
+  const ys=xs.map(x=>data.reduce((s,xi)=>s+Math.exp(-0.5*((x-xi)/h)**2),0)/(data.length*h*Math.sqrt(2*Math.PI)));
+  return{xs,ys};
+}
+
+/* ═══════════════════════ MAIN TAB NAV ═══════════════════════ */
+function switchMain(name){
+  document.querySelectorAll('.main-tab').forEach((t,i)=>{
+    t.classList.toggle('active',['viz','practice','ref'][i]===name);
+  });
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  if(name==='viz'){renderScatter();setTimeout(()=>{renderRegression();renderHistogram();renderDummy();renderExercise();},50);}
+}
+
+/* ═══════════════════════ VIZ TABS ═══════════════════════ */
+const vizCharts={};
+function destroyViz(id){if(vizCharts[id]){vizCharts[id].destroy();delete vizCharts[id];}}
+
+function switchViz(name){
+  document.querySelectorAll('.stab').forEach((t,i)=>{
+    t.classList.toggle('active',['scatter','regression','histogram','dummy','exercise'][i]===name);
+  });
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('viz-'+name).classList.add('active');
+  if(name==='scatter')renderScatter();
+  if(name==='regression')renderRegression();
+  if(name==='histogram')renderHistogram();
+  if(name==='dummy')renderDummy();
+  if(name==='exercise')renderExercise();
+}
+
+function renderScatter(){
+  const zx1=+document.getElementById('zx1').value,zx2=+document.getElementById('zx2').value;
+  const zy1=+document.getElementById('zy1').value,zy2=+document.getElementById('zy2').value;
+  document.getElementById('zx1v').textContent=zx1;document.getElementById('zx2v').textContent=zx2;
+  document.getElementById('zy1v').textContent=zy1;document.getElementById('zy2v').textContent=zy2;
+  const showLine=document.getElementById('showLine').checked;
+  const reg=ols(CA_STR,CA_TSC);
+  const pts=CA_STR.map((s,i)=>({x:s,y:CA_TSC[i]}));
+  const lx=[zx1,zx2],ly=lx.map(x=>reg.b0+reg.b1*x);
+  const datasets=[{type:'scatter',label:'Districts',data:pts,backgroundColor:'rgba(55,138,221,0.45)',pointRadius:3}];
+  if(showLine)datasets.push({type:'line',label:'OLS',data:lx.map((x,i)=>({x,y:ly[i]})),borderColor:'#D85A30',borderWidth:2,pointRadius:0,tension:0});
+  destroyViz('scatter');
+  vizCharts['scatter']=new Chart(document.getElementById('scatterChart'),{
+    data:{datasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+    scales:{x:{min:zx1,max:zx2,title:{display:true,text:'Student-Teacher Ratio (str)'}},y:{min:zy1,max:zy2,title:{display:true,text:'Test Score (testscr)'}}}}
+  });
+}
+
+function renderRegression(){
+  const r=ols(CA_STR,CA_TSC);
+  document.getElementById('reg-metrics').innerHTML=`
+    <div class="metric"><div class="metric-label">β₀ (intercept)</div><div class="metric-value">${r.b0.toFixed(2)}</div></div>
+    <div class="metric"><div class="metric-label">β₁ (slope, str)</div><div class="metric-value">${r.b1.toFixed(4)}</div></div>
+    <div class="metric"><div class="metric-label">R²</div><div class="metric-value">${r.r2.toFixed(3)}</div></div>
+    <div class="metric"><div class="metric-label">n</div><div class="metric-value">${r.n}</div></div>`;
+  document.getElementById('reg-coef').innerHTML=`
+    <tr><td>Intercept (β₀)</td><td>${r.b0.toFixed(3)}</td><td>${r.se_b0.toFixed(3)}</td><td>${r.t_b0.toFixed(3)}</td><td>${r.p_b0}</td></tr>
+    <tr><td>str (β₁)</td><td>${r.b1.toFixed(4)}</td><td>${r.se_b1.toFixed(4)}</td><td>${r.t_b1.toFixed(3)}</td><td>${r.p_b1}</td></tr>`;
+  document.getElementById('reg-interp').innerHTML=`<strong>Interpretation:</strong> Each 1-unit increase in STR is associated with a <strong>${r.b1.toFixed(2)}</strong> point change in average test score. R² = <strong>${r.r2.toFixed(3)}</strong> means STR explains ${(r.r2*100).toFixed(1)}% of the variance in test scores.`;
+  destroyViz('resid');
+  vizCharts['resid']=new Chart(document.getElementById('residChart'),{
+    data:{datasets:[{type:'scatter',label:'Residuals',data:r.res.map((v,i)=>({x:i+1,y:v})),backgroundColor:'rgba(216,90,48,0.55)',pointRadius:3}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{title:{display:true,text:'Observation index'}},y:{title:{display:true,text:'Residual'}}}}
+  });
+}
+
+function renderHistogram(){
+  const binw=+document.getElementById('binw').value,showDens=document.getElementById('showDensity').checked,showMean=document.getElementById('showMean').checked;
+  document.getElementById('binwv').textContent=binw;
+  const data=CA_STR,mn=Math.min(...data),mx=Math.max(...data);
+  const nb=Math.ceil((mx-mn)/binw);
+  const bins=Array.from({length:nb},(_,i)=>({x0:mn+i*binw,x1:mn+(i+1)*binw,count:0}));
+  data.forEach(v=>{const i=Math.min(Math.floor((v-mn)/binw),nb-1);bins[i].count++;});
+  const labels=bins.map(b=>((b.x0+b.x1)/2).toFixed(2));
+  const densVals=bins.map(b=>b.count/(data.length*binw));
+  const datasets=[{type:'bar',label:'Density',data:densVals,backgroundColor:'rgba(55,138,221,0.5)',borderColor:'rgba(55,138,221,0.8)',borderWidth:1,categoryPercentage:1,barPercentage:1}];
+  if(showDens){
+    const kde=kernelDensity(data,0.5);
+    datasets.push({type:'line',label:'KDE',data:labels.map(l=>{const lf=parseFloat(l);const ki=kde.xs.findIndex(x=>x>=lf);return ki>=0?kde.ys[ki]:0;}),borderColor:'#1D9E75',borderWidth:2,pointRadius:0,tension:0.4});
+  }
+  if(showMean){
+    const m=mean(data),nb2=bins.findIndex(b=>b.x0<=m&&b.x1>m);
+    const ml=labels[Math.max(nb2,0)];
+    datasets.push({type:'line',label:'Mean',data:labels.map(l=>l===ml?Math.max(...densVals)*1.1:null),borderColor:'#EF9F27',borderWidth:2,pointRadius:7,pointStyle:'triangle',spanGaps:false});
+  }
+  const m=mean(data),sd=std(data),med=[...data].sort((a,b)=>a-b)[Math.floor(data.length/2)];
+  document.getElementById('hist-metrics').innerHTML=`
+    <div class="metric"><div class="metric-label">Mean STR</div><div class="metric-value">${m.toFixed(2)}</div></div>
+    <div class="metric"><div class="metric-label">Std. dev.</div><div class="metric-value">${sd.toFixed(2)}</div></div>
+    <div class="metric"><div class="metric-label">Median</div><div class="metric-value">${med.toFixed(2)}</div></div>
+    <div class="metric"><div class="metric-label">Binwidth</div><div class="metric-value">${binw}</div></div>`;
+  destroyViz('hist');
+  vizCharts['hist']=new Chart(document.getElementById('histChart'),{
+    data:{datasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+    scales:{x:{type:'category',labels,title:{display:true,text:'str'},ticks:{maxTicksLimit:10}},y:{title:{display:true,text:'Density'}}}}
+  });
+}
+
+function renderDummy(){
+  const cutoff=+document.getElementById('cutoff').value;
+  document.getElementById('cutoffv').textContent=cutoff;
+  const small=CA_TSC.filter((_,i)=>CA_STR[i]<cutoff),large=CA_TSC.filter((_,i)=>CA_STR[i]>=cutoff);
+  const ms=mean(small),ml=mean(large),diff=ms-ml;
+  document.getElementById('dummy-metrics').innerHTML=`
+    <div class="metric"><div class="metric-label">Mean (STR &lt; ${cutoff})</div><div class="metric-value">${ms.toFixed(2)}</div></div>
+    <div class="metric"><div class="metric-label">Mean (STR ≥ ${cutoff})</div><div class="metric-value">${ml.toFixed(2)}</div></div>
+    <div class="metric"><div class="metric-label">Difference β̂₁</div><div class="metric-value">${diff.toFixed(2)}</div></div>
+    <div class="metric"><div class="metric-label">n (small/large)</div><div class="metric-value">${small.length}/${large.length}</div></div>`;
+  document.getElementById('dummy-groups').innerHTML=`
+    <tr><td>Small class (STR &lt; ${cutoff})</td><td>${small.length}</td><td>${ms.toFixed(2)}</td></tr>
+    <tr><td>Large class (STR ≥ ${cutoff})</td><td>${large.length}</td><td>${ml.toFixed(2)}</td></tr>`;
+  document.getElementById('dummy-interp').innerHTML=`<strong>Dummy regression:</strong> testscr = β₀ + β₁·str20 + ε. β̂₁ = <strong>${diff.toFixed(2)}</strong> (the difference in group means). Districts with smaller classes score <strong>${diff>0?'higher':'lower'}</strong> by ${Math.abs(diff).toFixed(2)} points on average.`;
+  destroyViz('dummy');
+  vizCharts['dummy']=new Chart(document.getElementById('dummyChart'),{
+    data:{datasets:[{type:'bar',label:'Mean score',data:[ms,ml],backgroundColor:['rgba(55,138,221,0.65)','rgba(216,90,48,0.65)'],borderWidth:1}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+    scales:{x:{type:'category',labels:[`Small class (STR<${cutoff})`,`Large class (STR≥${cutoff})`]},y:{min:Math.min(ms,ml)-5,max:Math.max(ms,ml)+5,title:{display:true,text:'Mean test score'}}}}
+  });
+}
+
+function renderExercise(){
+  const ds=document.getElementById('exDataset').value;
+  if(ds==='cars'){
+    document.getElementById('ex-title').textContent='§6A — Stopping distance vs. speed (cars dataset)';
+    const r=ols(CARS_S,CARS_D);
+    const sx=[Math.min(...CARS_S),Math.max(...CARS_S)];
+    document.getElementById('ex-metrics').innerHTML=`
+      <div class="metric"><div class="metric-label">β₀</div><div class="metric-value">${r.b0.toFixed(2)}</div></div>
+      <div class="metric"><div class="metric-label">β₁ (speed)</div><div class="metric-value">${r.b1.toFixed(3)}</div></div>
+      <div class="metric"><div class="metric-label">R²</div><div class="metric-value">${r.r2.toFixed(3)}</div></div>`;
+    document.getElementById('ex-coef').innerHTML=`
+      <tr><td>Intercept</td><td>${r.b0.toFixed(3)}</td><td>${r.se_b0.toFixed(3)}</td><td>${r.t_b0.toFixed(2)}</td><td>${r.p_b0}</td></tr>
+      <tr><td>speed</td><td>${r.b1.toFixed(3)}</td><td>${r.se_b1.toFixed(3)}</td><td>${r.t_b1.toFixed(2)}</td><td>${r.p_b1}</td></tr>`;
+    document.getElementById('ex-interp').innerHTML=`<strong>Interpretation:</strong> Each additional mph of speed adds <strong>${r.b1.toFixed(2)} feet</strong> of stopping distance. β₁ > 0 as expected. R² = ${r.r2.toFixed(3)}.`;
+    destroyViz('ex');
+    vizCharts['ex']=new Chart(document.getElementById('exChart'),{
+      data:{datasets:[
+        {type:'scatter',label:'Cars',data:CARS_S.map((s,i)=>({x:s,y:CARS_D[i]})),backgroundColor:'rgba(30,160,115,0.65)',pointRadius:5},
+        {type:'line',label:'OLS',data:sx.map(x=>({x,y:r.b0+r.b1*x})),borderColor:'#D85A30',borderWidth:2,pointRadius:0}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{x:{title:{display:true,text:'Speed (mph)'}},y:{title:{display:true,text:'Stopping distance (ft)'}}}}
+    });
+  } else {
+    document.getElementById('ex-title').textContent='§6B — Car weight distribution (mtcars dataset)';
+    document.getElementById('ex-coef').innerHTML='';
+    const m=mean(MTCARS_WT),sd2=std(MTCARS_WT);
+    document.getElementById('ex-metrics').innerHTML=`
+      <div class="metric"><div class="metric-label">Mean wt</div><div class="metric-value">${m.toFixed(3)}</div></div>
+      <div class="metric"><div class="metric-label">Std. dev.</div><div class="metric-value">${sd2.toFixed(3)}</div></div>
+      <div class="metric"><div class="metric-label">n</div><div class="metric-value">${MTCARS_WT.length}</div></div>`;
+    document.getElementById('ex-interp').innerHTML='<strong>mtcars</strong> — 32 classic cars. Weight in thousands of pounds. Distribution is right-skewed, with most cars between 1.5–4k lbs.';
+    const data=MTCARS_WT,bw=0.5,mn=Math.min(...data),mx=Math.max(...data);
+    const nb=Math.ceil((mx-mn)/bw);
+    const bins=Array.from({length:nb},(_,i)=>({x0:mn+i*bw,x1:mn+(i+1)*bw,count:0}));
+    data.forEach(v=>{const i=Math.min(Math.floor((v-mn)/bw),nb-1);bins[i].count++;});
+    const labels=bins.map(b=>((b.x0+b.x1)/2).toFixed(2));
+    const densVals=bins.map(b=>b.count/(data.length*bw));
+    const kde=kernelDensity(data,0.3);
+    const kdePoints=labels.map(l=>{const lf=parseFloat(l);const ki=kde.xs.findIndex(x=>x>=lf);return ki>=0?kde.ys[ki]:0;});
+    const nb2=bins.findIndex(b=>b.x0<=m&&b.x1>m),ml=labels[Math.max(nb2,0)];
+    destroyViz('ex');
+    vizCharts['ex']=new Chart(document.getElementById('exChart'),{
+      data:{datasets:[
+        {type:'bar',label:'Density',data:densVals,backgroundColor:'rgba(216,90,48,0.55)',borderColor:'rgba(216,90,48,0.8)',borderWidth:1,categoryPercentage:1,barPercentage:1},
+        {type:'line',label:'KDE',data:kdePoints,borderColor:'#1D9E75',borderWidth:2,pointRadius:0,tension:0.4},
+        {type:'line',label:'Mean',data:labels.map(l=>l===ml?Math.max(...densVals)*1.15:null),borderColor:'#EF9F27',borderWidth:2,pointRadius:7,pointStyle:'triangle',spanGaps:false}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{x:{type:'category',labels,title:{display:true,text:'Weight (1000 lbs)'},ticks:{maxTicksLimit:8}},y:{title:{display:true,text:'Density'}}}}
+    });
+  }
+}
+
+/* ═══════════════════════ PRACTICE EXERCISES ═══════════════════════ */
+const EXERCISES=[
+  {section:'§2',title:'Explore the dataset',
+   task:'Use <code>head(caschool)</code> to preview the first 6 rows. Then print <code>nrow(caschool)</code> to confirm there are 420 districts.',
+   hint:'Type each command on its own line. R executes them top to bottom.',
+   solution:'head(caschool)\nnrow(caschool)',
+   check:c=>/head\s*\(\s*caschool\s*\)/.test(c)&&/nrow\s*\(\s*caschool\s*\)/.test(c),
+   run:c=>{let o='';if(/head\s*\(\s*caschool\s*\)/.test(c))o+='  district      str  testscr\n1        1   19.89    690.0\n2        2   17.36    661.2\n3        3   21.83    643.7\n4        4   18.61    658.4\n5        5   19.54    652.5\n6        6   22.41    638.9\n';if(/nrow\s*\(\s*caschool\s*\)/.test(c))o+='[1] 420\n';return{text:o||'# Nothing to show — check your commands.',plot:null};}},
+  {section:'§2',title:'Create a scatter plot',
+   task:'Plot Student-Teacher Ratio vs. Test Score: <code>ggplot(caschool, aes(x=str, y=testscr)) + geom_point()</code>',
+   hint:'The + geom_point() part draws the actual dots on the canvas.',
+   solution:'ggplot(caschool, aes(x = str, y = testscr)) + geom_point()',
+   check:c=>/ggplot/.test(c)&&/geom_point/.test(c),
+   run:c=>{if(!/ggplot/.test(c)||!/geom_point/.test(c))return{text:'Error: ggplot + geom_point() not found.',plot:null};return{text:'Plot rendered below.',plot:{type:'scatter',xs:CA_STR,ys:CA_TSC,xlab:'str',ylab:'testscr',color:'rgba(55,138,221,0.45)',title:'caschool scatter plot'}};}},
+  {section:'§3',title:'Fit OLS regression',
+   task:'Fit a linear model: store it as <code>lreg</code> using <code>lm(testscr ~ str, data = caschool)</code>, then call <code>summary(lreg)</code>.',
+   hint:'lm() fits the model. summary() prints the coefficients, standard errors, t-stats, and R².',
+   solution:'lreg <- lm(formula = testscr ~ str, data = caschool)\nsummary(lreg)',
+   check:c=>/lm\s*\(/.test(c)&&/testscr\s*~\s*str/.test(c)&&/summary/.test(c),
+   run:c=>{if(!/lm\s*\(/.test(c))return{text:'Error: lm() not found.',plot:null};const r=ols(CA_STR,CA_TSC);return{text:`Call:\nlm(formula = testscr ~ str, data = caschool)\n\nCoefficients:\n            Estimate Std. Error t value Pr(>|t|)\n(Intercept) ${r.b0.toFixed(4)}   ${r.se_b0.toFixed(4)}  ${r.t_b0.toFixed(2)}   <2e-16 ***\nstr         ${r.b1.toFixed(4)}    ${r.se_b1.toFixed(4)} ${r.t_b1.toFixed(2)}   <2e-16 ***\n\nMultiple R-squared: ${r.r2.toFixed(4)}\nF-statistic: ${(r.t_b1**2).toFixed(1)} on 1 and ${r.n-2} DF,  p-value: < 2.2e-16`,plot:null};}},
+  {section:'§3',title:'Plot residuals',
+   task:'After <code>lreg <- lm(testscr ~ str, data = caschool)</code>, plot the residuals: <code>plot(lreg$residuals, pch=20, col="red")</code>.',
+   hint:'Access residuals via the $ operator: lreg$residuals. In a well-specified model, residuals should look random.',
+   solution:'lreg <- lm(testscr ~ str, data = caschool)\nplot(lreg$residuals, pch = 20, col = "red")',
+   check:c=>/lm\s*\(/.test(c)&&/lreg\$residuals/.test(c)&&/plot\s*\(/.test(c),
+   run:c=>{if(!/lm\s*\(/.test(c)||!/residuals/.test(c))return{text:'Error: residuals not found.',plot:null};const r=ols(CA_STR,CA_TSC);return{text:'Residual plot rendered below.',plot:{type:'resid',res:r.res,xlab:'Observation index',ylab:'Residuals',title:'Residual plot: lreg$residuals'}};}},
+  {section:'§4',title:'Histogram with mean line',
+   task:'Draw a histogram of <code>str</code> with binwidth 0.5 and add a vertical dashed mean line using <code>geom_vline()</code>.',
+   hint:'Chain: geom_histogram(binwidth=0.5) + geom_vline(aes(xintercept=mean(str)), linetype="dashed")',
+   solution:'ggplot(caschool, aes(x = str)) +\n  geom_histogram(binwidth = 0.5) +\n  geom_vline(aes(xintercept = mean(str)), linetype = "dashed", color = "yellow", size = 2)',
+   check:c=>/geom_histogram/.test(c)&&/geom_vline/.test(c),
+   run:c=>{if(!/geom_histogram/.test(c))return{text:'Error: geom_histogram() not found.',plot:null};return{text:'Histogram rendered below.',plot:{type:'hist',data:CA_STR,binw:0.5,xlab:'str',showMean:/geom_vline/.test(c),title:'Histogram of str (binwidth = 0.5)'}};}},
+  {section:'§5',title:'Dummy variable regression',
+   task:'Create <code>str20 = ifelse(str < 20, 1, 0)</code>, then run <code>lm(testscr ~ str20)</code> and call <code>summary()</code>.',
+   hint:'Use caschool$str20 <- ifelse(caschool$str < 20, 1, 0) to create the dummy column.',
+   solution:'caschool$str20 <- ifelse(caschool$str < 20, 1, 0)\nlreg_dum <- lm(testscr ~ str20, data = caschool)\nsummary(lreg_dum)',
+   check:c=>/ifelse/.test(c)&&/str20/.test(c)&&/lm\s*\(/.test(c),
+   run:c=>{if(!/ifelse/.test(c))return{text:'Error: ifelse() not found.',plot:null};const sm=CA_TSC.filter((_,i)=>CA_STR[i]<20),lg=CA_TSC.filter((_,i)=>CA_STR[i]>=20);const ms=mean(sm),ml=mean(lg),diff=ms-ml;return{text:`Call:\nlm(formula = testscr ~ str20, data = caschool)\n\nCoefficients:\n            Estimate Std. Error t value Pr(>|t|)\n(Intercept)  ${ml.toFixed(2)}      0.47    ${(ml/0.47).toFixed(1)}   <2e-16 ***\nstr20         ${diff.toFixed(2)}      0.63    ${(diff/0.63).toFixed(2)}   <2e-16 ***\n\nNote: β̂₁ = mean(small) − mean(large) = ${ms.toFixed(2)} − ${ml.toFixed(2)} = ${diff.toFixed(2)}`,plot:null};}},
+  {section:'§6A',title:'Regression: cars dataset',
+   task:'Fit <code>lm(dist ~ speed, data = cars)</code>, call <code>summary()</code>, then plot with <code>plot(cars)</code> and <code>abline(lreg)</code>.',
+   hint:'After lm(), use plot(cars, pch=2, col="green") then abline(lreg) to overlay the regression line.',
+   solution:'lreg <- lm(dist ~ speed, data = cars)\nsummary(lreg)\nplot(cars, pch = 2, col = "green")\nabline(lreg)',
+   check:c=>/lm\s*\(/.test(c)&&/dist\s*~\s*speed/.test(c)&&/abline/.test(c),
+   run:c=>{const r=ols(CARS_S,CARS_D);let o='';if(/summary/.test(c))o=`Call:\nlm(formula = dist ~ speed, data = cars)\n\nCoefficients:\n            Estimate Std. Error t value Pr(>|t|)\n(Intercept)  ${r.b0.toFixed(4)}     ${r.se_b0.toFixed(4)}  ${r.t_b0.toFixed(2)}   0.013 *\nspeed         ${r.b1.toFixed(4)}     ${r.se_b1.toFixed(4)}   ${r.t_b1.toFixed(2)}  1.49e-12 ***\n\nMultiple R-squared: ${r.r2.toFixed(4)}\n`;return{text:(o||'')+'Plot rendered below.',plot:{type:'scatter',xs:CARS_S,ys:CARS_D,xlab:'speed (mph)',ylab:'dist (ft)',color:'rgba(30,160,115,0.65)',title:'cars: dist ~ speed',line:/abline/.test(c)?{b0:r.b0,b1:r.b1}:null}};}},
+  {section:'§6B',title:'Histogram: mtcars weight',
+   task:'Draw a histogram of <code>wt</code> from <code>mtcars</code> with binwidth 0.5, add a density overlay with <code>geom_density()</code>, and a mean line.',
+   hint:'Use aes(y = ..density..) inside geom_histogram() so the y-axis matches the density curve scale.',
+   solution:'ggplot(mtcars, aes(x = wt)) +\n  geom_histogram(binwidth = 0.5, aes(y = ..density..), fill = "white", color = "black") +\n  geom_density(alpha = 0.2, fill = "green") +\n  geom_vline(aes(xintercept = mean(wt)), color = "yellow", linetype = "dashed", size = 2)',
+   check:c=>/geom_histogram/.test(c)&&/wt/.test(c),
+   run:c=>{if(!/geom_histogram/.test(c))return{text:'Error: geom_histogram() not found.',plot:null};return{text:'Histogram rendered below.',plot:{type:'hist',data:MTCARS_WT,binw:0.5,xlab:'wt (1000 lbs)',showMean:/geom_vline/.test(c),showDensity:/geom_density/.test(c),title:'mtcars: distribution of wt'}};}}
+];
+
+let currentEx=0,completed=new Set(),practiceChart=null;
+
+function renderExNav(){
+  document.getElementById('exNav').innerHTML=EXERCISES.map((e,i)=>`<button class="ex-btn${i===currentEx?' active':''}${completed.has(i)?' done':''}" onclick="goEx(${i})">${e.section} Ex${i+1}</button>`).join('');
+}
+function renderExProgress(){
+  document.getElementById('progress').innerHTML=EXERCISES.map((_,i)=>`<div class="prog-dot${completed.has(i)?' done':i===currentEx?' active':''}"></div>`).join('')+`<span class="prog-label">${completed.size} / ${EXERCISES.length} completed</span>`;
+}
+function renderExTask(){
+  const e=EXERCISES[currentEx];
+  document.getElementById('taskCard').innerHTML=`<div class="task-label">${e.section} — ${e.title}</div><div class="task-text">${e.task}</div>`;
+  document.getElementById('codeEditor').value='';
+  document.getElementById('outputArea').textContent='Output will appear here...';
+  document.getElementById('outputArea').className='output-area';
+  document.getElementById('feedbackBox').style.display='none';
+  document.getElementById('hintBox').className='hint-text';
+  document.getElementById('nextBtn').style.display='none';
+  document.getElementById('plotWrap').style.display='none';
+  if(practiceChart){practiceChart.destroy();practiceChart=null;}
+}
+function goEx(i){currentEx=i;renderExNav();renderExProgress();renderExTask();}
+function showHint(){const h=document.getElementById('hintBox');h.textContent=EXERCISES[currentEx].hint;h.className='hint-text show';}
+function showSolution(){document.getElementById('codeEditor').value=EXERCISES[currentEx].solution;document.getElementById('hintBox').className='hint-text';}
+function nextEx(){if(currentEx<EXERCISES.length-1)goEx(currentEx+1);}
+
+function runCode(){
+  const code=document.getElementById('codeEditor').value.trim();
+  if(!code){document.getElementById('outputArea').textContent='# Please write some code first.';return;}
+  const e=EXERCISES[currentEx];
+  const result=e.run(code);
+  const out=document.getElementById('outputArea');
+  out.textContent=result.text||'';
+  const correct=e.check(code);
+  if(correct){completed.add(currentEx);out.className='output-area success';}else{out.className='output-area error';}
+  const fb=document.getElementById('feedbackBox');
+  fb.className='feedback '+(correct?'correct':'wrong');
+  fb.textContent=correct?'Correct! Your code matches the expected pattern.':'Not quite — check the hint or try adjusting your code.';
+  fb.style.display='block';
+  document.getElementById('nextBtn').style.display=correct&&currentEx<EXERCISES.length-1?'':'none';
+  renderExNav();renderExProgress();
+
+  const pw=document.getElementById('plotWrap');
+  if(practiceChart){practiceChart.destroy();practiceChart=null;}
+  if(result.plot){
+    pw.style.display='block';
+    const pl=result.plot;
+    if(pl.type==='scatter'){
+      const ds=[{type:'scatter',label:'Data',data:pl.xs.map((x,i)=>({x,y:pl.ys[i]})),backgroundColor:pl.color,pointRadius:3}];
+      if(pl.line)ds.push({type:'line',label:'OLS',data:[{x:Math.min(...pl.xs),y:pl.line.b0+pl.line.b1*Math.min(...pl.xs)},{x:Math.max(...pl.xs),y:pl.line.b0+pl.line.b1*Math.max(...pl.xs)}],borderColor:'#D85A30',borderWidth:2,pointRadius:0});
+      practiceChart=new Chart(document.getElementById('plotCanvas'),{data:{datasets:ds},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:pl.title,font:{size:13}},legend:{display:false}},scales:{x:{title:{display:true,text:pl.xlab}},y:{title:{display:true,text:pl.ylab}}}}});
+    } else if(pl.type==='resid'){
+      practiceChart=new Chart(document.getElementById('plotCanvas'),{data:{datasets:[{type:'scatter',label:'Residuals',data:pl.res.map((r,i)=>({x:i+1,y:r})),backgroundColor:'rgba(216,90,48,0.55)',pointRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:pl.title,font:{size:13}},legend:{display:false}},scales:{x:{title:{display:true,text:pl.xlab}},y:{title:{display:true,text:pl.ylab}}}}});
+    } else if(pl.type==='hist'){
+      const data=pl.data,bw=pl.binw,mn=Math.min(...data),mx=Math.max(...data);
+      const nb=Math.ceil((mx-mn)/bw);
+      const bins=Array.from({length:nb},(_,i)=>({x0:mn+i*bw,x1:mn+(i+1)*bw,count:0}));
+      data.forEach(v=>{const i=Math.min(Math.floor((v-mn)/bw),nb-1);bins[i].count++;});
+      const labels=bins.map(b=>((b.x0+b.x1)/2).toFixed(2));
+      const densVals=bins.map(b=>b.count/(data.length*bw));
+      const ds=[{type:'bar',label:'Density',data:densVals,backgroundColor:'rgba(55,138,221,0.5)',borderColor:'rgba(55,138,221,0.8)',borderWidth:1,categoryPercentage:1,barPercentage:1}];
+      if(pl.showDensity){const kde=kernelDensity(data,pl.binw);ds.push({type:'line',label:'KDE',data:labels.map(l=>{const lf=parseFloat(l);const ki=kde.xs.findIndex(x=>x>=lf);return ki>=0?kde.ys[ki]:0;}),borderColor:'#1D9E75',borderWidth:2,pointRadius:0,tension:0.4});}
+      if(pl.showMean){const m=mean(data),nb2=bins.findIndex(b=>b.x0<=m&&b.x1>m),ml=labels[Math.max(nb2,0)];ds.push({type:'line',label:'Mean',data:labels.map(l=>l===ml?Math.max(...densVals)*1.12:null),borderColor:'#EF9F27',borderWidth:2,pointRadius:7,pointStyle:'triangle',spanGaps:false});}
+      practiceChart=new Chart(document.getElementById('plotCanvas'),{data:{datasets:ds},options:{responsive:true,maintainAspectRatio:false,plugins:{title:{display:true,text:pl.title,font:{size:13}},legend:{display:false}},scales:{x:{type:'category',labels,title:{display:true,text:pl.xlab},ticks:{maxTicksLimit:9}},y:{title:{display:true,text:'Density'}}}}});
+    }
+  } else {
+    pw.style.display='none';
+  }
+}
+
+document.getElementById('codeEditor').addEventListener('keydown',function(e){
+  if(e.key==='Tab'){e.preventDefault();const s=this.selectionStart;this.value=this.value.slice(0,s)+'  '+this.value.slice(this.selectionEnd);this.selectionStart=this.selectionEnd=s+2;}
+  if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runCode();}
+});
+
+renderExNav();renderExProgress();renderExTask();
+
+renderScatter();
+</script>
+</body>
+</html>
