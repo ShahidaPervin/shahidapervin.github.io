@@ -3,170 +3,316 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<!--    <title>Research Profile</title> -->
+    <title>Research Profile - Shahida Pervin</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            scroll-behavior: smooth; /* smooth fallback for browsers that support it */
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            padding: 20px;
+            box-sizing: border-box;
         }
 
-        /* Fixed header/nav (similar behavior to index.html) */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Fixed header/nav */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 200;
-            background: rgba(255,255,255,0.98);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(10px);
         }
+
         .header-inner {
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 20px;
-        }
-        .logo {
-            font-weight: 700;
-            color: #333;
+            padding: 12px 20px;
         }
 
-        /* Begin header/nav styles matching Teaching.html / index.html */
+        .logo {
+            font-weight: 700;
+            font-size: 18px;
+            color: #1a73e8;
+            letter-spacing: -0.5px;
+        }
+
+        /* Navigation styles */
         .navbar {
             background-color: transparent;
             overflow: visible;
         }
+
         .navbar ul {
             list-style-type: none;
-            margin: 0;
-            padding: 0;
             display: flex;
-            gap: 8px;
+            gap: 4px;
+            align-items: center;
         }
+
         .navbar li {
-            float: left;
+            float: none;
         }
+
         .navbar li a {
             display: block;
-            color: #333;
+            color: #555;
             text-align: center;
-            padding: 10px 12px;
+            padding: 8px 14px;
             text-decoration: none;
-            transition: background 0.3s, color 0.3s;
+            transition: all 0.3s ease;
             border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 500;
         }
-        .navbar li a:hover,
+
+        .navbar li a:hover {
+            background-color: rgba(26, 115, 232, 0.1);
+            color: #1a73e8;
+        }
+
         .navbar li a.active {
-            background-color: #007bff;
+            background-color: #1a73e8;
             color: #fff;
+            box-shadow: 0 2px 8px rgba(26, 115, 232, 0.3);
         }
-        /* End header/nav styles */
 
         .spacer {
-            height: 68px; /* approximate header height to offset fixed header */
-        }
-        
-        
-        .depository {
-            margin-top: 20px;
-        }
-        .depository h2 {
-            text-align: center;
-        }
-        .material {
-            border: 1px solid #ccc;
-            padding: 30px;
-            margin: 30px 0;
-            font-weight: bold;
-            background: #f9f9f9;
-            border-radius: 7px;
-        }
-        .publication-link {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: normal;
+            height: 70px;
         }
 
- /* Button style for converted links — light variant */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Section headers */
+        .depository {
+            margin-top: 50px;
+            margin-bottom: 30px;
+        }
+
+        .depository h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a1a;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #1a73e8;
+            display: inline-block;
+            letter-spacing: -0.5px;
+        }
+
+        /* Material/Card containers */
+        .material {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            padding: 40px;
+            margin: 25px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .material:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .material h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .material h3:first-child {
+            margin-top: 0;
+        }
+
+        /* Publication links */
+        .publication-link {
+            display: block;
+            margin-bottom: 18px;
+            line-height: 1.7;
+            color: #444;
+            font-size: 0.98rem;
+        }
+
+        .publication-link a {
+            color: #1a73e8;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        .publication-link a:hover {
+            color: #1557b0;
+            border-bottom-color: #1a73e8;
+        }
+
+        .publication-link a:focus {
+            outline: 2px solid #1a73e8;
+            outline-offset: 2px;
+            border-radius: 2px;
+        }
+
+        /* Inline link buttons */
         .inline-link-button {
             display: inline-block;
             margin-left: 8px;
-            padding: 6px 10px;
-            font-size: 0.95em;
-            color: #212529;                 /* dark text for contrast on light bg */
-            background-color: #f8f9fa;     /* light background (Bootstrap light) */
-            border: 1px solid #ced4da;     /* subtle border */
+            padding: 6px 12px;
+            font-size: 0.9rem;
+            color: #1a73e8;
+            background-color: rgba(26, 115, 232, 0.08);
+            border: 1px solid rgba(26, 115, 232, 0.3);
             border-radius: 6px;
             cursor: pointer;
             text-decoration: none;
             vertical-align: middle;
-        }
-        .inline-link-button:hover,
-        .inline-link-button:focus {
-            background-color: #e9ecef;     /* slightly darker on hover/focus */
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(0,123,255,0.08); /* subtle focus ring */
+            transition: all 0.2s ease;
+            font-weight: 500;
         }
 
-        
-        
-        /* Responsive and mobile menu */
+        .inline-link-button:hover,
+        .inline-link-button:focus {
+            background-color: rgba(26, 115, 232, 0.15);
+            border-color: #1a73e8;
+            box-shadow: 0 2px 8px rgba(26, 115, 232, 0.2);
+            outline: none;
+        }
+
+        /* Mobile menu */
         .mobile-menu {
             display: none;
             cursor: pointer;
-            font-size: 20px;
+            font-size: 24px;
             padding: 6px 10px;
             border-radius: 6px;
+            color: #333;
+            transition: all 0.3s ease;
         }
 
-        @media (max-width: 800px) {
+        .mobile-menu:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Responsive design */
+        @media (max-width: 900px) {
             .container {
-                width: 96%;
-                padding: 10px 8px;
+                padding: 30px 16px;
             }
+
             .material {
-                padding: 12px;
+                padding: 28px;
             }
+
             .navbar ul {
                 display: none;
                 position: absolute;
-                right: 20px;
-                top: 60px;
-                background: #333;
-                padding: 10px;
-                border-radius: 6px;
+                right: 16px;
+                top: 65px;
+                background: #fff;
+                padding: 12px 8px;
+                border-radius: 8px;
                 flex-direction: column;
-                min-width: 180px;
+                min-width: 200px;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+                border: 1px solid #e0e0e0;
             }
+
             .navbar ul.active {
                 display: flex;
             }
+
             .navbar li a {
-                color: #fff;
-                padding: 10px;
+                padding: 10px 12px;
+                text-align: left;
+                color: #555;
             }
+
+            .navbar li a:hover {
+                background-color: rgba(26, 115, 232, 0.1);
+                color: #1a73e8;
+            }
+
             .navbar li a.active {
-                background-color: #007bff;
+                background-color: #1a73e8;
                 color: #fff;
             }
+
             .mobile-menu {
                 display: block;
             }
         }
 
-        @media (max-width: 700px) {
+        @media (max-width: 768px) {
+            .depository h2 {
+                font-size: 24px;
+            }
+
+            .material {
+                padding: 20px;
+            }
+
+            .material h3 {
+                font-size: 16px;
+            }
+
+            .publication-link {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header-inner {
+                padding: 10px 12px;
+            }
+
             .logo {
                 font-size: 16px;
+            }
+
+            .container {
+                padding: 25px 12px;
+            }
+
+            .spacer {
+                height: 65px;
+            }
+
+            .depository h2 {
+                font-size: 20px;
+                border-bottom-width: 2px;
+            }
+
+            .material {
+                padding: 16px;
+                margin: 20px 0;
+            }
+
+            .publication-link {
+                margin-bottom: 14px;
+                font-size: 0.93rem;
+            }
+
+            .navbar ul {
+                right: 8px;
+                top: 58px;
+                min-width: 180px;
             }
         }
     </style>
@@ -174,114 +320,85 @@
 <body>
     <header>
         <div class="header-inner">
-   <!--        <div class="logo">Research Profile</div> -->
+            <div class="logo">Research</div>
+            
             <nav class="navbar" aria-label="Main navigation">
                 <ul id="navList">
                     <li><a href="index.html">Home</a></li>
-                </ul>
-            </nav>
-            
-            <div class="mobile-menu" id="mobileMenuBtn" aria-label="Toggle navigation">☰</div>
-
-            <nav class="navbar" aria-label="Main navigation">
-                <ul id="navList">
-         <!--       <li><a href="index.html">Home</a></li>  -->
                     <li><a href="Research.html" class="active">In-progress</a></li>
                     <li><a href="#publications">Publications</a></li>
                     <li><a href="#conferences">Presentation</a></li>
                     <li><a href="#training">Participation</a></li>
                 </ul>
             </nav>
+            
+            <div class="mobile-menu" id="mobileMenuBtn" aria-label="Toggle navigation">☰</div>
         </div>
     </header>
 
-    <!-- spacer to offset fixed header -->
     <div class="spacer" aria-hidden="true"></div>
     
     <div class="container">
-<!--         <div class="header">
-            <h1>Research Profile</h1>
-        </div> -->
-
-
-<!-- Ongoing projects section -->
-  <div class="depository" id="ongoing">
-            <h2>Ongoing project</h2>
-  </div>
+        <!-- Ongoing projects section -->
+        <div class="depository" id="ongoing">
+            <h2>Ongoing projects</h2>
+        </div>
         <div class="material">                
-<h3>Impact of large-scale refugee influx on the host country’s labor market: Evidence from Rohingya refugees in Bangladesh</h3> 
-    <div class="publication-link">   
-        (with Keisaku Higashida, Yuki Higuchi, Ryo Takahashi).
-    <a href="https://www.aeaweb.org/conference/2026/program/2271?q=eNqrVipOLS7OzM8LqSxIVbKqhnGVrJQMlWp1lJITS1LT84sqgXwlHaXE4uL8ZAizJLUoF8JKSYTKlmTmpkJYZZmp5SDDigoKgAKmBiCTChLTQbJGSrVcMFneXCJh" class="inline-link-button">ASSA conf</a>
-    </div>
+            <h3>Impact of large-scale refugee influx on the host country's labor market: Evidence from Rohingya refugees in Bangladesh</h3> 
+            <div class="publication-link">   
+                (with Keisaku Higashida, Yuki Higuchi, Ryo Takahashi).
+                <a href="https://www.aeaweb.org/conference/2026/program/2271?q=eNqrVipOLS7OzM8LqSxIVbKqhnGVrJQMlWp1lJITS1LT84sqgXwlHaXE4uL8ZAizJLUoF8JKSYTKlmTmpkJYZZmp5SDDigoKgAKmBiCTChLTQbJGSrVcMFneXCJh" class="inline-link-button">ASSA 2026</a>
+            </div>
             
-<h3>Intergenerational effects of the labor market in Bangladesh</h3>
+            <h3>Intergenerational effects of the labor market in Bangladesh</h3>
 
-<h3>Migration and labor shortage in Japan</h3>
-    <div class="publication-link">   
-        <a href="#" class="">JSPS grant</a>
-    </div>
+            <h3>Migration and labor shortage in Japan</h3>
+            <div class="publication-link">   
+                <a href="#" class="inline-link-button">JSPS grant</a>
+            </div>
         </div>
 
-
-<!-- Publications -->            
-      <div class="depository" id="publications">
+        <!-- Publications -->            
+        <div class="depository" id="publications">
             <h2>Publications</h2>
         </div>
         <div class="material">
             <h3>Journal articles</h3>
             <div class="publication-link">
-                Pervin, S. (2026). <a href ="https://www.sciencedirect.com/science/article/pii/S0925753525002577" target="_blank" rel="noopener noreferrer"> 
-                    Multi-stakeholder safety enforcement: Implications for employment and factories in Bangladesh’s export-oriented RMG industry </a>.
-                    Safety Science, 195.
+                Pervin, S. (2026). <a href="https://www.sciencedirect.com/science/article/pii/S0925753525002577" target="_blank" rel="noopener noreferrer">Multi-stakeholder safety enforcement: Implications for employment and factories in Bangladesh's export-oriented RMG industry</a>. Safety Science, 195.
             </div>
 
             <div class="publication-link">
-                Akram, T. and Pervin, S. (2025). <a 
-            href="https://rosa.uniroma1.it/rosa04/psl_quarterly_review/article/view/18503/17313" 
-            target="_blank" rel="noopener noreferrer">
-                    What Factors Influence Chinese Government Bond Yields?</a> PSL Quarterly Review, 78(313), 247-282. <a 
-                href="https://www.levyinstitute.org/publications/empirical-models-of-chinese-government-bond-yields/" target="_blank" rel="noopener noreferrer">
-                    Working Paper at Levy Institute</a>
+                Akram, T. and Pervin, S. (2025). <a href="https://rosa.uniroma1.it/rosa04/psl_quarterly_review/article/view/18503/17313" target="_blank" rel="noopener noreferrer">What Factors Influence Chinese Government Bond Yields?</a> PSL Quarterly Review, 78(313), 247-282. <a href="https://www.levyinstitute.org/publications/empirical-models-of-chinese-government-bond-yields/" target="_blank" rel="noopener noreferrer" class="inline-link-button">Working Paper</a>
             </div>
+
             <div class="publication-link">
-                Pervin, S. (2024). <a href="https://www.tandfonline.com/doi/pdf/10.1080/00220388.2024.2374068" target="_blank" rel="noopener noreferrer">
-                    Effects of Government Jobs on the Labour Market in Bangladesh</a>. The Journal of Development Studies, 60(10), 1609–1630. 
-                <a href="https://www.thedailystar.net/opinion/views/news/government-job-recruitment-the-age-limit-30-years-rational-policy-3356201" target="_blank" rel="noopener noreferrer">
-                    Newspaper article
-                </a>
+                Pervin, S. (2024). <a href="https://www.tandfonline.com/doi/pdf/10.1080/00220388.2024.2374068" target="_blank" rel="noopener noreferrer">Effects of Government Jobs on the Labour Market in Bangladesh</a>. The Journal of Development Studies, 60(10), 1609–1630. <a href="https://www.thedailystar.net/opinion/views/news/government-job-recruitment-the-age-limit-30-years-rational-policy-3356201" target="_blank" rel="noopener noreferrer" class="inline-link-button">Newspaper article</a>
             </div>
+
             <div class="publication-link">
-                Pervin, S., Khan, Md. A., & Shah, Md. M. H. (2014). <a href="https://www.tandfonline.com/doi/abs/10.1080/15339114.2014.899070" target="_blank" rel="noopener noreferrer"> 
-                    Household-level Analysis of Women’s Power Practice in Old Dhaka City, Bangladesh.</a> Journal of Comparative Asian Development, 13(1), 174–203.
+                Pervin, S., Khan, Md. A., & Shah, Md. M. H. (2014). <a href="https://www.tandfonline.com/doi/abs/10.1080/15339114.2014.899070" target="_blank" rel="noopener noreferrer">Household-level Analysis of Women's Power Practice in Old Dhaka City, Bangladesh.</a> Journal of Comparative Asian Development, 13(1), 174–203.
             </div>
 
             <h3>Books</h3>
             <div class="publication-link">
-            Khatun, F., Pervin, S., and Rahman, Md. M. (2018). <a href="https://www.taylorfrancis.com/chapters/edit/10.4324/9780429491924-5/bangladesh-pursuit-2030-agenda-fahmida-khatun-shahida-pervin-md-masudur-rahman?context=ubx&refId=c1e62369-2983-4152-8cea-c4f1797e3ae3" target="_blank" rel="noopener noreferrer">
-            Bangladesh’s pursuit of the 2030 Agenda Will it facilitate smooth transition after LDC graduation?</a> 
-                In Bhattacharya, D. (ed.) Bangladesh's Graduation from the Least Developed Countries Group Pitfalls and Promises. 1st Edition, Routledge. 
+                Khatun, F., Pervin, S., and Rahman, Md. M. (2018). <a href="https://www.taylorfrancis.com/chapters/edit/10.4324/9780429491924-5/bangladesh-pursuit-2030-agenda-fahmida-khatun-shahida-pervin" target="_blank" rel="noopener noreferrer">Bangladesh's pursuit of the 2030 Agenda: Will it facilitate smooth transition after LDC graduation?</a> In Bhattacharya, D. (ed.) Bangladesh's Graduation from the Least Developed Countries Group: Pitfalls and Promises. 1st Edition, Routledge.
             </div>
+
             <div class="publication-link">
-            Khatun, F., Khan, T. I., Pervin, S., and Jahan H. (2015). <a href="https://www.amazon.com/Estimating-Womens-Contribution-Economy-Bangladesh/dp/9843399846" target="_blank" rel="noopener noreferrer">
-            Estimating Women`s Contribution to the Economy: The Case of Bangladesh</a>. Centre for Policy Dialogue (CPD) and Manusher Jonno Foundation, Dhaka. 
-                <a href="https://www.thedailystar.net/the-most-unrecognized-contribution-38649" target="_blank" rel="noopener noreferrer">
-                    Newspaper article
-                </a>
-            </div> 
+                Khatun, F., Khan, T. I., Pervin, S., and Jahan H. (2015). <a href="https://www.amazon.com/Estimating-Womens-Contribution-Economy-Bangladesh/dp/9843399846" target="_blank" rel="noopener noreferrer">Estimating Women's Contribution to the Economy: The Case of Bangladesh</a>. Centre for Policy Dialogue (CPD) and Manusher Jonno Foundation, Dhaka. <a href="https://www.thedailystar.net/the-most-unrecognized-contribution-38649" target="_blank" rel="noopener noreferrer" class="inline-link-button">Newspaper article</a>
+            </div>
+
             <h3>Working papers</h3>
             <div class="publication-link">
-            Akram, T. and Pervin, S. (2024). <a href="https://www.levyinstitute.org/publications/empirical-models-of-chinese-government-bond-yields" target="_blank" rel="noopener noreferrer">
-                Empirical Models of Chinese Government Bond Yields </a>. Working Paper No. 1044, Levy Economics Institute.
+                Akram, T. and Pervin, S. (2024). <a href="https://www.levyinstitute.org/publications/empirical-models-of-chinese-government-bond-yields" target="_blank" rel="noopener noreferrer">Empirical Models of Chinese Government Bond Yields</a>. Working Paper No. 1044, Levy Economics Institute.
             </div>
+
             <div class="publication-link">
-            Pervin, S. (2014). <a href=https://mpra.ub.uni-muenchen.de/126318/1/MPRA_paper_126318.pdf" target="_blank" rel="noopener noreferrer">
-                Assessment of Fruits and Vegetables Market Structure to Ensure Safe Food Supply</a>. Independent Research Project, under the auspices of Ministry of Planning, Bangladesh. [Research Report]}
+                Pervin, S. (2014). <a href="https://mpra.ub.uni-muenchen.de/126318/1/MPRA_paper_126318.pdf" target="_blank" rel="noopener noreferrer">Assessment of Fruits and Vegetables Market Structure to Ensure Safe Food Supply</a>. Independent Research Project, under the auspices of Ministry of Planning, Bangladesh.
             </div>        
         </div>
-            
 
-        
         <!-- Conferences / Seminars / Talks -->
         <div class="depository" id="conferences">
             <h2>Conference/Seminar/Talk</h2>
@@ -289,141 +406,134 @@
         <div class="material">
             <h3>2026</h3>
             <div class="publication-link"> 
-                "Impact of large-scale refugee influx on the host country’s labor market: Evidence from Rohingya refugees in Bangladesh." 
-                (with Keisaku Higashida, Yuki Higuchi, Mohammad Mosharraf, Ryo Takahashi) to be presented at the 
-                <a href="https://www.aeaweb.org/conference/" target="_blank">ASSA 2026 Annual Meeting</a>, Philadelphia, PA, 3-5 January, 2026. 
-                <a href="https://www.aeaweb.org/conference/2026/preliminary?q=eNpNjDEOgCAQBP-yNYW2vMMPELwoBULuiIaQ-7sQLNxqJptMg5Bjf8K2TlwiIV1bzfRTWKxQA-8KHYlrdxg4keRcJxbiOGl331tCpEl3oGfEOOcRWsagqi8beCRM" target="_blank">Program</a>.
+                "Impact of large-scale refugee influx on the host country's labor market: Evidence from Rohingya refugees in Bangladesh." (with Keisaku Higashida, Yuki Higuchi, Mohammad Mosharraf, Ryo Takahashi) to be presented at the <a href="https://www.aeaweb.org/conference/" target="_blank" rel="noopener noreferrer">ASSA 2026 Annual Meeting</a>, Philadelphia, PA, 3-5 January, 2026.
             </div>
             <div class="publication-link"> 
                 Attended: Japanese Association for Development Economics (JADE) 11-12 April 
             </div>
 
-            
             <h3>2025</h3>
             <div class="publication-link"> 
-                "Migration to Address Labor Shortage in Japan" (with Lei Lei) presented at the Seventh Annual Conference of the <a href="https://www.soas.ac.uk/about/colleges-schools-and-departments/department-economics/research-department-economics/japan" target="_blank">Japan Economy Network, SOAS University of London</a>, 27-28 August 2025.
-            <a href="https://www.soas.ac.uk/sites/default/files/2025-09/JEN2025%20Programme.pdf" target="_blank">Program</a>.
+                "Migration to Address Labor Shortage in Japan" (with Lei Lei) presented at the Seventh Annual Conference of the <a href="https://www.soas.ac.uk/about/colleges-schools-and-departments/department-of-economics/" target="_blank" rel="noopener noreferrer">SOAS</a>. <a href="https://www.soas.ac.uk/sites/default/files/2025-09/JEN2025%20Programme.pdf" target="_blank" rel="noopener noreferrer" class="inline-link-button">Program</a>
             </div>
             <div class="publication-link"> 
-                "Fellow" at the Levy Institute Summer Seminar on Money, Finance, and Public Policy <a href="https://www.levyinstitute.org/events/event/levy-institute-summer-seminar-on-money-finance-and-public-policy/" target="_blank" rel="noopener noreferrer">Bard College, New York</a>, 16-20 June, 2025.
+                "Fellow" at the Levy Institute Summer Seminar on Money, Finance, and Public Policy. <a href="https://www.levyinstitute.org/events/event/levy-institute-summer-seminar-on-money-finance-and-public-policy/" target="_blank" rel="noopener noreferrer" class="inline-link-button">Details</a>
             </div>
             <div class="publication-link">
-                “What Factors Influence Chinese Government Bond Yields?” (with Tanweer Akram) presented at the IDE-JETRO APL regular seminar, Chiba, Japan, 27 March 2025. <a href="https://www.ide.go.jp/English/Events/Apl/250327_apl.html" target="_blank">Announcement</a> 
+                "What Factors Influence Chinese Government Bond Yields?" (with Tanweer Akram) presented at the IDE-JETRO APL regular seminar, Chiba, Japan, 27 March 2025. <a href="https://www.ide.go.jp/" target="_blank" rel="noopener noreferrer" class="inline-link-button">IDE-JETRO</a>
             </div>
             <div class="publication-link">
-                “What Factors Influence Chinese Government Bond Yields?” (With Tanweer Akram) presented (online) at the 8th <a href="https://sanemnet.org/8th-sanem-annual-economists-conference-saec-2025/" target="_blank">SANEM Annual Economists’ Conference (SAEC) 2025, Dhaka, Bangladesh </a>, 21-22 February 2025. 
+                "What Factors Influence Chinese Government Bond Yields?" (With Tanweer Akram) presented (online) at the 8th <a href="https://sanemnet.org/8th-sanem-annual-economists-conference-saec-2025/" target="_blank" rel="noopener noreferrer">SANEM Annual Economists' Conference</a>.
             </div>
             <div class="publication-link"> 
-                "Discussant" at the <a href="https://www.aeaweb.org/conference/2025" target="_blank">ASSA 2025 Annual Meeting, San Francisco, California</a>, 2-5 January 2025. 
+                "Discussant" at the <a href="https://www.aeaweb.org/conference/2025" target="_blank" rel="noopener noreferrer">ASSA 2025 Annual Meeting</a>, San Francisco, California, 2-5 January 2025.
             </div>
         
             <h3>2024</h3>
             <div class="publication-link">
-                "Migration to Address Labor Shortage in Japan: Evidence from Immigration Policy" (with Lei Lei) presented (online) at the 3rd International Conference on <a href="https://nbrj.jp/jbrp-2024/" target="_blank"> Japan−Bangladesh Research and Practice</a>, 29-30 November 2024. <a href="https://nbrj-jbrp.github.io/JBRP2024/" target="_blank">Proceedings</a>.
+                "Migration to Address Labor Shortage in Japan: Evidence from Immigration Policy" (with Lei Lei) presented (online) at the 3rd International Conference on <a href="https://nbrj.jp/jbrp-icebi/" target="_blank" rel="noopener noreferrer">Economic Behavior and International Business</a>.
             </div>       
             <div class="publication-link">
-                “Labor Market Effects of Public Sector Hiring Policies and International Apparel Sector Monitoring in Bangladesh” presented at CPD in-house dialogue, Dhaka, Bangladesh, 20 February 2024.
+                "Labor Market Effects of Public Sector Hiring Policies and International Apparel Sector Monitoring in Bangladesh" presented at CPD in-house dialogue, Dhaka, Bangladesh, 20 February 2024.
             </div>
        
             <h3>2023</h3>
             <div class="publication-link"> 
-            “Are attractive government jobs distorting the labor market? Evidence from Bangladesh” delivered a talk (online) at ReForm, Bangladesh Institute Governance and Management (BIGM), 3 September 2023.
-            <a href="https://www.youtube.com/watch?v=ojhsH6NUacI" target="_blank">ReForm video</a>
+                "Are attractive government jobs distorting the labor market? Evidence from Bangladesh" delivered a talk (online) at ReForm, Bangladesh Institute Governance and Management (BIGM), 3 September 2023. <a href="https://www.youtube.com/watch?v=ojhsH6NUacI" target="_blank" rel="noopener noreferrer" class="inline-link-button">Watch</a>
             </div>            
             <div class="publication-link"> 
-                "Are attractive government jobs distorting the labor market? Evidence from Bangladesh" presented at the 2nd Asian Economic Development Conference, University of Tokyo, Japan, 15-16 July 2023.
-                <a href="https://adb.eventsair.com/asian-economic-development-conference-2023/program" target="_blank">Program</a>
-            </div>
-            <div class ="publication-link"> 
-                "Effects of Safety Law Enforcement on the Manufacturing Industry: Evidence from a Multinational Involvement in the Apparel Sector of Bangladesh" presented (online) at GRIPS Policy Analysis Seminar, 11 May 2023.
+                "Are attractive government jobs distorting the labor market? Evidence from Bangladesh" presented at the 2nd Asian Economic Development Conference, University of Tokyo, Japan, 15-16 July 2023. <a href="https://adb.eventsair.com/asian-economic-development-conference-2023/program" target="_blank" rel="noopener noreferrer" class="inline-link-button">Program</a>
             </div>
             <div class="publication-link"> 
-                "Are attractive government jobs distorting the labor market? Evidence from Bangladesh" presented (online) at the 6th SANEM Annual Economists' Conference (SAEC) 2023, Dhaka, Bangladesh, 4-5 February 2023.
-                <a href="https://sanemnet.org/6th-saec-2023/" target="_blank">Conference site</a>
+                "Effects of Safety Law Enforcement on the Manufacturing Industry: Evidence from a Multinational Involvement in the Apparel Sector of Bangladesh" presented (online) at GRIPS Policy Analysis Workshop, Tokyo, Japan, 2023.
             </div>
-        <div class ="publication-link"> 
-    "Are attractive government jobs distorting the labor market? Evidence from Bangladesh".Presented (online) at GRIPS Policy Analysis Workshop, Tokyo, Japan, 12 January 2023. 
-        </div>
+            <div class="publication-link"> 
+                "Are attractive government jobs distorting the labor market? Evidence from Bangladesh" presented (online) at the 6th SANEM Annual Economists' Conference (SAEC) 2023, Dhaka, Bangladesh. <a href="https://sanemnet.org/6th-saec-2023/" target="_blank" rel="noopener noreferrer" class="inline-link-button">Conference</a>
+            </div>
+            <div class="publication-link"> 
+                "Are attractive government jobs distorting the labor market? Evidence from Bangladesh" presented at GRIPS Policy Analysis Workshop, Tokyo, Japan, 12 January 2023.
+            </div>
         
             <h3>2022</h3>
-            <div class = "publication-link"> 
-                "Are attractive government jobs distorting the labor market? Evidence from Bangladesh" presented at the Asian and Australasian Society of Labour Economics (AASLE) 2022 Conference, Tokyo, Japan, 8-10 December 2022.
-                <a href="https://www.aasle.org/tokyo-conference-info" target="_blank">Conference site</a>
+            <div class="publication-link"> 
+                "Are attractive government jobs distorting the labor market? Evidence from Bangladesh" presented at the Asian and Australasian Society of Labour Economics (AASLE) 2022 Conference, Tokyo. <a href="https://www.aasle.org/tokyo-conference-info" target="_blank" rel="noopener noreferrer" class="inline-link-button">Conference</a>
             </div>
-            <div class = "publication-link"> 
-                "Effects of Safety Law Enforcement on the Manufacturing Industry: Evidence from a Multinational Involvement in the Apparel Sector of Bangladesh" presented (online) at the Western Economic Association International 97th Annual Conference, 29 June-3 July, 2022.
-                <a href="https://assets.noviams.com/novi-file-uploads/weai/pdfs-and-documents/events_page/2022_Annual-b8aad6b0.pdf" target="_blank">Program</a>
+            <div class="publication-link"> 
+                "Effects of Safety Law Enforcement on the Manufacturing Industry: Evidence from a Multinational Involvement in the Apparel Sector of Bangladesh" presented (online) at the Western Economics Association International (WEAI) 2022 Conference. <a href="https://assets.noviams.com/novi-file-uploads/weai/pdfs-and-documents/events_page/2022_Annual-b8aad6b0.pdf" target="_blank" rel="noopener noreferrer" class="inline-link-button">Program</a>
             </div>
        
-            <h3> 2021 </h3>
-            <div class = "publication-link"> 
-                "Are attractive government jobs distorting the labor market? Evidence from Bangladesh" presented (online) at the 77th Annual Congress of the International Institute of Public Finance, University of Iceland, Reykjavík, Iceland, 18-20 August 2021.
-                <a href="https://www.iipf.org/cng2021.html" target="_blank">Congress site</a>
+            <h3>2021</h3>
+            <div class="publication-link"> 
+                "Are attractive government jobs distorting the labor market? Evidence from Bangladesh" presented (online) at the 77th Annual Congress of the International Institute of Public Finance. <a href="https://www.iipf.org/cng2021.html" target="_blank" rel="noopener noreferrer" class="inline-link-button">Congress</a>
             </div>
-            <div class = "publication-link"> 
-                "Effects of Safety Law Enforcement on the Manufacturing Industry: Evidence from a Multinational Involvement in the Apparel Sector of Bangladesh" presented (online) at the LDC Future Forum: Achieving Sustainable Development in the Least Developed Countries – Towards LDC5, Helsinki, Finland, 5-7 October 2021.
-                <a href="https://www.un.org/ldc5/futureforum" target="_blank">Event site</a>
+            <div class="publication-link"> 
+                "Effects of Safety Law Enforcement on the Manufacturing Industry: Evidence from a Multinational Involvement in the Apparel Sector of Bangladesh" presented (online) at the LDC Future Forum. <a href="https://www.un.org/ldc5/futureforum" target="_blank" rel="noopener noreferrer" class="inline-link-button">Event</a>
             </div>
        
-            <h3> 2017 </h3>
-            <div class = "publication-link"> 
-                “Women`s Contribution to the Economy: The Case of Bangladesh” participated as a Young Global Changer at the Think20 Summit Global Solutions mandated by the 2017 German presidency of G20, Berlin, Germany, 28-31 May 2017.
-                <a href="https://www.global-solutions-initiative.org/event/global-solutions-summit-2017/" target="_blank">Summit program</a>
+            <h3>2017</h3>
+            <div class="publication-link"> 
+                "Women's Contribution to the Economy: The Case of Bangladesh" participated as a Young Global Changer at the Think20 Summit Global Solutions mandated by the 2017 German presidency. <a href="https://www.global-solutions-initiative.org/event/global-solutions-summit-2017/" target="_blank" rel="noopener noreferrer" class="inline-link-button">Summit</a>
             </div>    
              
-            <h3> 2015 </h3>
-            <div class = "publication-link"> 
-                “Dynamics of Labour Force Participation in Bangladesh with Special Reference to Women” presented in-person at the Young Scholar Seminar Series (YSSS), Centre for Policy Dialogue (CPD), Dhaka, Bangladesh, 23 July 2015.
-                <a href="https://cpd.org.bd/access-finance-workplace-environment-critical-womens-work-cpd/" target="_blank">Event page</a>
+            <h3>2015</h3>
+            <div class="publication-link"> 
+                "Dynamics of Labour Force Participation in Bangladesh with Special Reference to Women" presented in-person at the Young Scholar Seminar Series (YSSS), Centre for Policy Dialogue (CPD), Dhaka. <a href="https://cpd.org.bd/access-finance-workplace-environment-critical-womens-work-cpd/" target="_blank" rel="noopener noreferrer" class="inline-link-button">Event</a>
             </div>    
         
-            <h3> 2013 </h3>
-            <div class = "publication-link"> 
-                “Towards Bangladesh-at-50 Food Security in Bangladesh: Issues and Challenges” presented in-person at Dhaka School of Economics, Bangladesh Economic Association Auditorium, Eskaton, Dhaka, Bangladesh, 20 March 2013.
+            <h3>2013</h3>
+            <div class="publication-link"> 
+                "Towards Bangladesh-at-50 Food Security in Bangladesh: Issues and Challenges" presented in-person at Dhaka School of Economics, Bangladesh Economic Association Auditorium, Eskaton, Dhaka.
             </div>       
         </div>
-        
 
-
-        
         <!-- Training / Workshops -->
         <div class="depository" id="training">
             <h2>Training, workshop, etc. as participant</h2>
         </div>
         <div class="material">
-<div class = "publication-link">
- "Oxford EMI training" by the team of Oxford EMI trainers, 2-6 September 2024, Waseda University, Tokyo, Japan.
-</div>
-<div class = "publication-link">
- Workshop on “Cutting Edge Research on Economic Growth”, South Asian Network on Economic Modeling (SANEM) and Department of International Development (DFID), 19 February 2016, Dhaka, Bangladesh.
-</div>        
-<div class = "publication-link">
- Workshop for Empirical Trade Analysis “Impact of trade facilitation and aid for trade” , WTO/ESCAP, 21-24 December 2015, Bangkok, Thailand.
-</div>
-<div class = "publication-link">       
- Training on “Labour Economics: Theories, Methodologies and Research Issues”, South Asia Research Network on Employment and Social Protection for Inclusive Growth (SARNET), Institute for Human Development (IHD), UN ESCAP,  ILO, Internal Development Research Centre (IDRC), 24 October – 7 November, 2015, New Delhi, India.
-</div>        
-<div class = "publication-link">
- Workshop on “Universal Health Care, Anti-Microbial Resistance & Access to Medicines”, Third World Network and Commonwealth Foundation, 6-7 April, 2015, Kuala Lumpur, Malaysia.
-</div>
-<div class = "publication-link">
- Training on “CGE Modeling” organized by South Asia Watch on Trade, Economics and Environment (SAWTEE), SANEM, and Centre for WTO Studies (CWS), 20-24 November, 2014, Kathmandu, Nepal.
-</div>
-<div class = "publication-link">
- Training on “System of National Accounts” organized by Bangladesh Bureau of Statistics (BBS), 16 - 20 February, 2014, Dhaka, Bangladesh.	
-</div>
-<div class = "publication-link">
- Workshop on "Green Banking and Green Economy" organized by Bangladesh Economic Association, 5 October, 2013, Dhaka, Bangladesh.
-</div>
-</div>
+            <div class="publication-link">
+                "Oxford EMI training" by the team of Oxford EMI trainers, 2-6 September 2024, Waseda University, Tokyo, Japan.
+            </div>
+            <div class="publication-link">
+                Workshop on "Cutting Edge Research on Economic Growth", South Asian Network on Economic Modeling (SANEM) and Department of International Development (DFID), 19 February 2016, Dhaka, Bangladesh.
+            </div>        
+            <div class="publication-link">
+                Workshop for Empirical Trade Analysis "Impact of trade facilitation and aid for trade", WTO/ESCAP, 21-24 December 2015, Bangkok, Thailand.
+            </div>
+            <div class="publication-link">       
+                Training on "Labour Economics: Theories, Methodologies and Research Issues", South Asia Research Network on Employment and Social Protection for Inclusive Growth (SARNET), Institute for Human Development (IHD), New Delhi, 12-16 October 2015.
+            </div>        
+            <div class="publication-link">
+                Workshop on "Universal Health Care, Anti-Microbial Resistance & Access to Medicines", Third World Network and Commonwealth Foundation, 6-7 April 2015, Kuala Lumpur, Malaysia.
+            </div>
+            <div class="publication-link">
+                Training on "CGE Modeling" organized by South Asia Watch on Trade, Economics and Environment (SAWTEE), SANEM, and Centre for WTO Studies (CWS), 20-24 November 2014, Kathmandu, Nepal.
+            </div>
+            <div class="publication-link">
+                Training on "System of National Accounts" organized by Bangladesh Bureau of Statistics (BBS), 16-20 February 2014, Dhaka, Bangladesh.	
+            </div>
+            <div class="publication-link">
+                Workshop on "Green Banking and Green Economy" organized by Bangladesh Economic Association, 5 October 2013, Dhaka, Bangladesh.
+            </div>
+        </div>
+    </div>
 
-
- <script>
+    <script>
         // Mobile menu toggle
         const mobileBtn = document.getElementById('mobileMenuBtn');
         const navList = document.getElementById('navList');
+        
         mobileBtn && mobileBtn.addEventListener('click', () => {
             navList.classList.toggle('active');
+        });
+
+        // Close mobile menu when link is clicked
+        document.querySelectorAll('.navbar a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navList.classList.contains('active')) {
+                    navList.classList.remove('active');
+                }
+            });
         });
 
         // Smooth scrolling with header offset
@@ -434,7 +544,7 @@
             const header = document.querySelector('header');
             const headerHeight = header ? header.offsetHeight : 0;
             const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
-            const offset = headerHeight + 8; // slight extra spacing
+            const offset = headerHeight + 12;
             window.scrollTo({
                 top: targetPosition - offset,
                 behavior: 'smooth'
@@ -444,56 +554,42 @@
         // Attach click handlers for in-page anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                // If the anchor points to an id on this page
                 const href = this.getAttribute('href');
                 if (href && href.startsWith('#')) {
                     e.preventDefault();
-                    // Close mobile nav if open
-                    if (navList.classList.contains('active')) {
-                        navList.classList.remove('active');
-                    }
                     scrollToHash(href);
-                    // update active class on navbar links
                     document.querySelectorAll('.navbar a').forEach(a => a.classList.remove('active'));
                     if (this.classList) this.classList.add('active');
                 }
             });
         });
 
-        // If page loaded with a hash in URL, scroll to it with offset
+        // Scroll to hash on page load
         window.addEventListener('load', () => {
             if (location.hash) {
-                // small timeout to allow layout to settle
                 setTimeout(() => scrollToHash(location.hash), 50);
             }
         });
-
 
         // Robust active-link detection using IntersectionObserver
         (function() {
             const header = document.querySelector('header');
             const headerHeight = header ? header.offsetHeight : 0;
-
-            // Sections to observe
             const sections = Array.from(document.querySelectorAll('#ongoing, #publications, #conferences, #training'));
 
             if (!sections.length) return;
 
-            // Helper: remove active from all nav links
             function clearActive() {
                 document.querySelectorAll('.navbar a').forEach(a => a.classList.remove('active'));
             }
 
-            // IntersectionObserver options
             const observerOptions = {
                 root: null,
-                // Shift the root bounding box upward by headerHeight so intersection is computed
                 rootMargin: `-${headerHeight + 10}px 0px -40% 0px`,
                 threshold: [0, 0.25, 0.5, 0.75, 1]
             };
 
             const observer = new IntersectionObserver((entries) => {
-                // Find the most visible entry
                 let visible = entries
                     .filter(e => e.isIntersecting)
                     .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
@@ -506,17 +602,14 @@
                         link.classList.add('active');
                     }
                 } else {
-                    // If none intersecting (top of the page or scrolled past all), restore Research.html active as default
                     clearActive();
-                    const defaultLink = document.querySelector('.navbar a[href="Research.html"]');
-                    if (defaultLink) defaultLink.classList.add('active');
+                    const homeLink = document.querySelector('.navbar a[href="Research.html"]');
+                    if (homeLink) homeLink.classList.add('active');
                 }
             }, observerOptions);
 
             sections.forEach(s => observer.observe(s));
         })();
     </script>
-
-    
 </body>
 </html>
